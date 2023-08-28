@@ -19,19 +19,10 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "models/props_phx/sp_screen.mdl" ) -- TODO : Mettre le modèle
-	self:InitVar()
+	self:SetModel( SCP_263_CONFIG.ModelsReward[math.random(1, #SCP_263_CONFIG.ModelsReward)] )
 	self:RebuildPhysics()
 end
 
--- Intialise every var related to the entity
-function ENT:InitVar( )
-	self:SetIsOn(false)
-	self:SetIsWaitingAnswer(false)
-	self:SetIsEndingGame(false)
-end
-
--- Intialise the physic of the entity
 function ENT:RebuildPhysics( )
 	self:PhysicsInit( SOLID_VPHYSICS ) 
 	self:SetMoveType(MOVETYPE_VPHYSICS)
@@ -40,7 +31,6 @@ function ENT:RebuildPhysics( )
 	self:PhysWake()
 end
 
--- Use specially for the physics sounds
 function ENT:PhysicsCollide( data, physobj ) -- TODO : Changer les sons de collisions.
 	if data.DeltaTime > 0.2 then
 		if data.Speed > 250 then
@@ -48,25 +38,5 @@ function ENT:PhysicsCollide( data, physobj ) -- TODO : Changer les sons de colli
 		else
 			self:EmitSound( "physics/concrete/concrete_impact_soft".. math.random(1, 3)..".wav", 75, math.random( 100, 110 ) )		
 		end
-	end
-end
-
--- Switch on the tv if it's off
-function ENT:Use(ply)
-	if (not IsValid(ply) or self:GetIsOn()) then return end
-
-	-- TODO : Lancer la partie.
-	SCP_263.StartGame(ply, self)
-end
-
--- Detect if a player is too far from the tv
-function ENT:Think()
-	if (not self:GetIsOn() or self:GetIsEndingGame()) then return end
-	
-	local PlayerPos = self:GetCurrentPlayer():GetPos()
-	local EntityPos = self:GetPos()
-
-	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame) then
-		-- TODO : Déclencer la fin de partie en mode triche.
 	end
 end

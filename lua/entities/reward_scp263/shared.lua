@@ -14,30 +14,10 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
--- Every langs handled by the mod
-SCP_263_CONFIG.HandledLanguage = {
-    "fr",
-    "en",
-}
 
--- The total time the player is burned
-SCP_263_CONFIG.TimeToBurn = 42
-
--- The time the player has for answer the questions
-SCP_263_CONFIG.TimetoAnswer = 45
-
--- The maximum distance delimitation of the game
-SCP_263_CONFIG.MaximumDelimitationGame = 500
-
--- Every models that can be rewarded
-SCP_263_CONFIG.ModelsReward = {
-    "models/food/burger.mdl",
-    "models/food/hotdog.mdl",
-    "models/player/items/humans/top_hat.mdl",
-}
-
-SCP_263_CONFIG.SoundWrongAnswer = ""
-
-SCP_263_CONFIG.SoundRightAnswer = ""
-
-SCP_263_CONFIG.SoundGenericIntro = ""
+ENT.Type = "anim"
+ENT.Base = "base_gmodentity"
+ENT.Author = "MrMarrant"
+ENT.PrintName = "Reward SCP-263"
+ENT.Spawnable = false
+ENT.Category = "SCP"
