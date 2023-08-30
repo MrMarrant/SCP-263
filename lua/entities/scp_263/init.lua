@@ -19,7 +19,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "models/props_phx/sp_screen.mdl" ) -- TODO : Mettre le modèle
+	self:SetModel( "models/props_c17/tv_monitor01.mdl" ) -- TODO : Mettre le modèle
 	self:InitVar()
 	self:RebuildPhysics()
 end
@@ -39,6 +39,14 @@ function ENT:RebuildPhysics( )
 	self:SetSolid( SOLID_VPHYSICS ) 
 	self:SetUseType(SIMPLE_USE)
 	self:PhysWake()
+end
+
+function ENT:OnRemove( )
+	self:StopEverySounds()
+end
+
+function ENT:StopEverySounds( )
+	self:StopSound(SCP_263_CONFIG.SoundGenericIntro)
 end
 
 -- Use specially for the physics sounds

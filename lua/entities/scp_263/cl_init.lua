@@ -20,12 +20,12 @@ function ENT:Draw()
     self:DrawModel() 
 end
 
-function ENT:Think()
-    -- TODO : Afficher les questions aux joueurs proche de l'entité.
-    if (not self:GetIsOn() or (not self:GetIsWaitingAnswer() and self:GetIsIntroducingQuestion())) then return end
+function ENT:Initialize()
+    hook.Add("HUDPaint", "HUDPaint.SCP263_DisplayQuestions_".. self:EntIndex(), function()
+        SCP_263.DisplayQuestions(self)
+    end)
+end
 
-    local FilterTable, NonFilterTable = SCP_263.GetInSpherePlayers(self, SCP_263_CONFIG.MaximumDelimitationGame)
-    for key, ply in ipairs(FilterTable) do
-        SCP_263.DisplayQuestions(ply)
-    end
+function ENT:OnRemove()
+    hook.Remove("HUDPaint", "HUDPaint.SCP263_DisplayQuestions_".. self:EntIndex())
 end

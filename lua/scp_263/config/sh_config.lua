@@ -27,7 +27,7 @@ SCP_263_CONFIG.TimeToBurn = 42
 SCP_263_CONFIG.TimetoAnswer = 45
 
 -- The maximum distance delimitation of the game
-SCP_263_CONFIG.MaximumDelimitationGame = 500
+SCP_263_CONFIG.MaximumDelimitationGame = 200
 
 -- Every models that can be rewarded
 SCP_263_CONFIG.ModelsReward = {
@@ -42,7 +42,6 @@ SCP_263_CONFIG.SoundWrongAnswer = ""
 
 SCP_263_CONFIG.SoundRightAnswer = ""
 
-SCP_263_CONFIG.SoundGenericIntro = ""
+SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/generic.mp3" )
 
--- NETWORK STRING
 SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
