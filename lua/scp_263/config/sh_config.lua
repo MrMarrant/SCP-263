@@ -36,8 +36,13 @@ SCP_263_CONFIG.ModelsReward = {
     "models/player/items/humans/top_hat.mdl",
 }
 
+SCP_263_CONFIG.NumberOfQuestion = 1
+
 SCP_263_CONFIG.SoundWrongAnswer = ""
 
 SCP_263_CONFIG.SoundRightAnswer = ""
 
 SCP_263_CONFIG.SoundGenericIntro = ""
+
+-- NETWORK STRING
+SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"

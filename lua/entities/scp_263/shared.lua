@@ -27,5 +27,6 @@ function ENT:SetupDataTables()
     self:NetworkVar("Bool", 0, "IsOn")
     self:NetworkVar("Bool", 1, "IsWaitingAnswer")
     self:NetworkVar("Bool", 2, "IsEndingGame")
+    self:NetworkVar("Bool", 3, "IsIntroducingQuestion")
     self:NetworkVar("Entity", 0, "CurrentPlayer")
 end

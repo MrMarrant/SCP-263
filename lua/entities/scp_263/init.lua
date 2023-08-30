@@ -29,6 +29,7 @@ function ENT:InitVar( )
 	self:SetIsOn(false)
 	self:SetIsWaitingAnswer(false)
 	self:SetIsEndingGame(false)
+	self:SetIsIntroducingQuestion(false)
 end
 
 -- Intialise the physic of the entity
