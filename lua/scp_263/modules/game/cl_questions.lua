@@ -1,8 +1,10 @@
 local ActualQuestion = ""
-local Answer_A = ""
-local Answer_B = ""
-local Answer_C = ""
-local Answer_D = ""
+local Answers = {
+    Answer_1 = "",
+    Answer_2 = "",
+    Answer_3 = "",
+    Answer_4 = "",
+}
 
 -- TODO : affiche les questions au joueurs
 function SCP_263.DisplayQuestions(ent)
@@ -28,21 +30,38 @@ function SCP_263.DisplayQuestions(ent)
     end
     --? On affiche la question et les réponses possible.
     if (ent:GetIsWaitingAnswer()) then
-        
+        local titleWidth, titleHeight = surface.GetTextSize(ActualQuestion)
+        local titleX = SCP_263_CONFIG.ScrW * 0.5 - titleWidth * 0.5
+        local titleY = SCP_263_CONFIG.ScrH * 0.2
+        draw.SimpleText(ActualQuestion, "DermaLarge", titleX, titleY, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+
+        -- Rectangles Dimensions
+        local rectWidth = SCP_263_CONFIG.ScrW * 0.4
+        local rectHeight = SCP_263_CONFIG.ScrH * 0.1
+        local rectMargin = SCP_263_CONFIG.ScrW * 0.05
+        local rectStartY = SCP_263_CONFIG.ScrH * 0.3
+
+        for i = 1, 4 do
+            local rectX = (i % 2 == 1) and rectMargin or (SCP_263_CONFIG.ScrW * 0.5 + rectMargin)
+            local rectY = rectStartY + (math.floor((i - 1) / 2) * (rectHeight + rectMargin))
+
+            draw.RoundedBox(8, rectX, rectY, rectWidth, rectHeight, Color(255, 255, 255, 95))
+
+            local text = Answers["Answer_"..i]
+            local textWidth, textHeight = surface.GetTextSize(text)
+            local textX = rectX + rectWidth * 0.5 - textWidth * 0.5
+            local textY = rectY + rectHeight * 0.5 - textHeight * 0.5
+
+            draw.SimpleText(text, "SCP263_Answers", textX, textY, Color(0, 0, 0), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        end
     end
 end
 
 net.Receive(SCP_263_CONFIG.SetQuestions, function()
-    local Question = net.ReadString()
-    local A = net.ReadString()
-    local B = net.ReadString()
-    local C = net.ReadString()
-    local D = net.ReadString()
-
-    ActualQuestion = Question
-    Answer_A = A
-    Answer_B = B
-    Answer_C = C
-    Answer_D = D
+    ActualQuestion = net.ReadString()
+    Answer_1 = net.ReadString()
+    Answer_2 = net.ReadString()
+    Answer_3 = net.ReadString()
+    Answer_4 = net.ReadString()
 end)
 
