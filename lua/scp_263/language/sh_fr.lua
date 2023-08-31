@@ -15,7 +15,11 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local LANG_FR = {
-    welcome = "Bonjour",
+    Welcome = "Bonjour",
+    Answer_1 = "a",
+    Answer_2 = "b",
+    Answer_3 = "c",
+    Answer_4 = "d",
 }
 
 SCP_263.AddLanguage("fr", LANG_FR)

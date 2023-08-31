@@ -22,6 +22,9 @@ function ENT:Initialize()
 	self:SetModel( "models/props_c17/tv_monitor01.mdl" ) -- TODO : Mettre le modèle
 	self:InitVar()
 	self:RebuildPhysics()
+	hook.Add("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex(), function(ply, text)
+        SCP_263.CheckAnswer(self, ply, text)
+    end)
 end
 
 -- Intialise every var related to the entity
@@ -30,6 +33,9 @@ function ENT:InitVar( )
 	self:SetIsWaitingAnswer(false)
 	self:SetIsEndingGame(false)
 	self:SetIsIntroducingQuestion(false)
+	self:SetActualAnswer("")
+	self:SetCountCorrectAnswer(0)
+	self.QuestionsList = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
 end
 
 -- Intialise the physic of the entity
@@ -43,6 +49,7 @@ end
 
 function ENT:OnRemove( )
 	self:StopEverySounds()
+	hook.Remove("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex())
 end
 
 function ENT:StopEverySounds( )
@@ -76,6 +83,7 @@ function ENT:Think()
 	local EntityPos = self:GetPos()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame) then
-		-- TODO : Déclencer la fin de partie en mode triche.
+		SCP_263.BurnPlayer(ply)
+        SCP_263.EndGame(self)
 	end
 end

@@ -9,6 +9,10 @@ function SCP_263.EndGame(ent)
     ent:SetCurrentPlayer(nil)
     ent:SetIsWaitingAnswer(false)
 	ent:SetIsEndingGame(false)
+    ent:SetActualAnswer("")
+    ent:SetCountCorrectAnswer(0)
+    self.QuestionsList = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"] -- Reset questions list
+    ent:StopEverySounds()
 end
 
 function SCP_263.RewardPlayer(ent)
