@@ -84,6 +84,6 @@ function ENT:Think()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame) then
 		SCP_263.BurnPlayer(ply)
-        SCP_263.EndGame(ent)
+        SCP_263.EndGame(self)
 	end
 end

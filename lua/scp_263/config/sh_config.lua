@@ -18,8 +18,8 @@ SCP_263_CONFIG.NameFileQuestion = "_questions.json"
 
 -- Every langs handled by the mod
 SCP_263_CONFIG.HandledLanguage = {
-    "fr" = true,
-    "en" = true,
+    "fr",
+    "en",
 }
 
 -- The total time the player is burned
@@ -51,7 +51,10 @@ SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
 -----------GENERATE JSON FILE QUESTION-------------------
 
 --? Default Questions, Edit the JSON file created instead of here.
-local QuestionList["fr"] = {
+SCP_263_CONFIG.QuestionList = {}
+local QuestionList = {}
+
+QuestionList["fr"] = {
 	{
 		question = "Dans quel Site est contenu SCP-682 ?",
 		correct_answer = "a",
@@ -106,9 +109,9 @@ end
 
 --? We create the file if it don't exist with the default params, and we load the file when everythig is set up.
 for key, value in pairs(SCP_263_CONFIG.HandledLanguage) do
-    local FilePath= "data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion
+    local FilePath= "data_scp263/" .. value .. SCP_263_CONFIG.NameFileQuestion
     if not file.Exists(FilePath, "DATA") then
-        file.Write(FilePath, util.TableToJSON( QuestionList[key], true ))
+        file.Write(FilePath, util.TableToJSON( QuestionList[value], true ))
     end
-    SCP_263_CONFIG.QuestionList[key] = GetDataFromFile("data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion)
+    SCP_263_CONFIG.QuestionList[value] = GetDataFromFile("data_scp263/" .. value .. SCP_263_CONFIG.NameFileQuestion)
 end
