@@ -35,6 +35,7 @@ function ENT:InitVar( )
 	self:SetIsIntroducingQuestion(false)
 	self:SetActualAnswer("")
 	self:SetCountCorrectAnswer(0)
+	self.QuestionsList = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
 end
 
 -- Intialise the physic of the entity

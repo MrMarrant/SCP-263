@@ -14,10 +14,12 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+SCP_263_CONFIG.NameFileQuestion = "_questions.json"
+
 -- Every langs handled by the mod
 SCP_263_CONFIG.HandledLanguage = {
-    "fr",
-    "en",
+    "fr" = true,
+    "en" = true,
 }
 
 -- The total time the player is burned
@@ -45,3 +47,68 @@ SCP_263_CONFIG.SoundRightAnswer = Sound( "" )
 SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/generic.mp3" )
 
 SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
+
+-----------GENERATE JSON FILE QUESTION-------------------
+
+--? Default Questions, Edit the JSON file created instead of here.
+local QuestionList["fr"] = {
+	{
+		question = "Dans quel Site est contenu SCP-682 ?",
+		correct_answer = "a",
+		response_a = "Site 12",
+		response_b = "Site 20",
+		response_c = "Site 32",
+		response_d = "Aucun",
+	},
+	{
+		question = "Que signifie le protocle XZ ?",
+		correct_answer = "b",
+		response_a = "Une fin du monde",
+		response_b = "Plus de café",
+		response_c = "Fin de l'Humanité",
+		response_d = "Fin de la Civilisation",
+	},
+}
+
+QuestionList["en"] = {
+    {
+		question = "In which Site is SCP-682 contained?",
+		correct_answer = "a",
+		response_a = "Site 12",
+		response_b = "Site 20",
+		response_c = "Site 32",
+		response_d = "None",
+	},
+	{
+		question = "What does the XZ protocol mean?",
+		correct_answer = "b",
+		response_a = "An end of the world",
+		response_b = "No more coffee",
+		response_c = "End of Humanity",
+		response_d = "End of Civilization",
+	},
+}
+
+/*
+* Allows to return the data of a file.
+* @string path File path.
+*/
+local function GetDataFromFile(path)
+    local fileFind = file.Read(path) or ""
+    local dataFind = util.JSONToTable(fileFind) or {}
+    return dataFind
+end
+
+-- DIRECTORY DATA FOLDER
+if not file.Exists("data_scp263", "DATA") then
+    file.CreateDir("data_scp263")
+end
+
+--? We create the file if it don't exist with the default params, and we load the file when everythig is set up.
+for key, value in pairs(SCP_263_CONFIG.HandledLanguage) do
+    local FilePath= "data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion
+    if not file.Exists(FilePath, "DATA") then
+        file.Write(FilePath, util.TableToJSON( QuestionList[key], true ))
+    end
+    SCP_263_CONFIG.QuestionList[key] = GetDataFromFile("data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion)
+end
