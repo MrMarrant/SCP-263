@@ -38,9 +38,9 @@ SCP_263_CONFIG.ModelsReward = {
 
 SCP_263_CONFIG.NumberOfQuestion = 1
 
-SCP_263_CONFIG.SoundWrongAnswer = ""
+SCP_263_CONFIG.SoundWrongAnswer = Sound( "" )
 
-SCP_263_CONFIG.SoundRightAnswer = ""
+SCP_263_CONFIG.SoundRightAnswer = Sound( "" )
 
 SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/generic.mp3" )
 

@@ -9,6 +9,9 @@ function SCP_263.EndGame(ent)
     ent:SetCurrentPlayer(nil)
     ent:SetIsWaitingAnswer(false)
 	ent:SetIsEndingGame(false)
+    ent:SetActualAnswer("")
+    ent:SetCountCorrectAnswer(0)
+    ent:StopEverySounds( )
 end
 
 function SCP_263.RewardPlayer(ent)

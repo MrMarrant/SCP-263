@@ -15,7 +15,11 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local LANG_EN = {
-    welcome = "Welcome",
+    Welcome = "Welcome",
+    Answer_1 = "a",
+    Answer_2 = "b",
+    Answer_3 = "c",
+    Answer_4 = "d",
 }
 
 SCP_263.AddLanguage("en", LANG_EN)
