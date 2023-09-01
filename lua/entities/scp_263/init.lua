@@ -25,6 +25,15 @@ function ENT:Initialize()
 	hook.Add("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex(), function(ply, text)
         SCP_263.CheckAnswer(self, ply, text)
     end)
+	-- ? if the player died during a game, we end the game.
+	hook.Add( "PlayerDeath", "PlayerDeath.SCP263_IsPlayerDead_".. self:EntIndex(), function( victim, inflictor, attacker )
+		local CurrentPlayer = self:GetCurrentPlayer()
+		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
+			if (victim == CurrentPlayer) then
+				SCP_263.EndGame(self)
+			end
+		end
+	end)
 end
 
 -- Intialise every var related to the entity
@@ -50,6 +59,8 @@ end
 function ENT:OnRemove( )
 	self:StopEverySounds()
 	hook.Remove("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex())
+	hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. self:EntIndex())
+	hook.Remove( "PlayerDeath", "PlayerDeath.SCP263_IsPlayerDead_".. self:EntIndex())
 end
 
 function ENT:StopEverySounds( )
@@ -77,12 +88,12 @@ end
 
 -- Detect if a player is too far from the tv
 function ENT:Think()
-	if (not self:GetIsOn() or self:GetIsEndingGame()) then return end
+	if (not self:GetIsOn() or self:GetIsEndingGame() or not IsValid(self:GetCurrentPlayer())) then return end
 	
 	local PlayerPos = self:GetCurrentPlayer():GetPos()
 	local EntityPos = self:GetPos()
 
-	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame) then
+	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
 		SCP_263.BurnPlayer(ply)
         SCP_263.EndGame(self)
 	end

@@ -1,6 +1,7 @@
 function SCP_263.StartGame(ply, ent)
     ent:SetIsOn(true)
     ent:SetCurrentPlayer(ply)
+    SCP_263.InitAntiCheat(ply, ent)
     ent:EmitSound(SCP_263_CONFIG.SoundGenericIntro, 75, math.random( 100, 110 ))
     -- TODO : Lancer le générique
 
@@ -70,4 +71,16 @@ function SCP_263.CheckAnswer(ent, ply, text)
         SCP_263.BurnPlayer(ply)
         SCP_263.EndGame(ent)
     end
+end
+
+function SCP_263.EndGame(ent)
+    ent:SetIsOn(false)
+    ent:SetCurrentPlayer(nil)
+    ent:SetIsWaitingAnswer(false)
+	ent:SetIsEndingGame(false)
+    ent:SetActualAnswer("")
+    ent:SetCountCorrectAnswer(0)
+    self.QuestionsList = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"] -- Reset questions list
+    ent:StopEverySounds()
+    hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. self:EntIndex())
 end

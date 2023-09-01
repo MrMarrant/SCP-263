@@ -12,7 +12,7 @@ function SCP_263.DisplayQuestions(ent)
     if (not ent:GetIsOn() or (not ent:GetIsWaitingAnswer() and not ent:GetIsIntroducingQuestion())) then return end
 
     local ply = LocalPlayer()
-    if (ply:GetPos():Distance(ent:GetPos()) > SCP_263_CONFIG.MaximumDelimitationGame) then return end
+    if (ply:GetPos():Distance(ent:GetPos()) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then return end
 
     --? On affiche la question en grand au milieu de l'écran du joueur.
     if (ent:GetIsIntroducingQuestion()) then

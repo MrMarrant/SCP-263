@@ -22,23 +22,12 @@ SCP_263_CONFIG.HandledLanguage = {
     "en",
 }
 
--- The total time the player is burned
-SCP_263_CONFIG.TimeToBurn = 42
-
--- The time the player has for answer the questions
-SCP_263_CONFIG.TimetoAnswer = 45
-
--- The maximum distance delimitation of the game
-SCP_263_CONFIG.MaximumDelimitationGame = 200
-
 -- Every models that can be rewarded
 SCP_263_CONFIG.ModelsReward = {
     "models/food/burger.mdl",
     "models/food/hotdog.mdl",
     "models/player/items/humans/top_hat.mdl",
 }
-
-SCP_263_CONFIG.NumberOfQuestion = 1
 
 SCP_263_CONFIG.SoundWrongAnswer = Sound( "" )
 
