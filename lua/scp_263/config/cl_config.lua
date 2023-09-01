@@ -3,7 +3,7 @@ SCP_263_CONFIG.ScrH = ScrH()
 
 --? Default Value Convar
 SCP_263_CONFIG.ClientTimeToBurn = 42
-SCP_263_CONFIG.ClientTimetoAnswer = 45
+SCP_263_CONFIG.ClientTimeToAnswer = 45
 SCP_263_CONFIG.ClientMaximumDelimitationGame = 200
 
 surface.CreateFont( "SCP263_TitleQuestion", {

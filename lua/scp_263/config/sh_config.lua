@@ -33,9 +33,11 @@ SCP_263_CONFIG.SoundWrongAnswer = Sound( "" )
 
 SCP_263_CONFIG.SoundRightAnswer = Sound( "" )
 
-SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/generic.mp3" )
+SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/sound_effect/generic.mp3" )
 
+-- NET VAR
 SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
+SCP_263_CONFIG.SetConvarClientSide = "SCP_263_CONFIG.SetConvarClientSide"
 
 -----------GENERATE JSON FILE QUESTION-------------------
 

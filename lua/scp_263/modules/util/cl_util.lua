@@ -35,3 +35,9 @@ function SCP_263.WrapText(text, maxWidth, explode)
 
     return finalText
 end
+
+net.Receive(SCP_263_CONFIG.SetConvarClientSide, function ()
+    local name = net.ReadString()
+    local value = net.ReadUInt(14)
+    SCP_263_CONFIG[name] = value
+end)

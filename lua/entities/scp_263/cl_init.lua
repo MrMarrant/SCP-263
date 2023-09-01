@@ -23,6 +23,7 @@ end
 function ENT:Initialize()
     hook.Add("HUDPaint", "HUDPaint.SCP263_DisplayQuestions_".. self:EntIndex(), function()
         SCP_263.DisplayQuestions(self)
+        SCP_263.DisplayTimer(self)
     end)
 end
 
