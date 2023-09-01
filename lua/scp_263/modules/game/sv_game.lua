@@ -7,22 +7,31 @@ function SCP_263.StartGame(ply, ent)
     timer.Simple(3, function()
         if not IsValid(ent) or not IsValid(ply) then return end
 
-        net.Start(SCP_263_CONFIG.SetQuestions)
-            net.WriteString("Quel est le site dans lequel SCP-682 est confiné ?")
-            net.WriteString("A : Site-19")
-            net.WriteString("B : Site-17")
-            net.WriteString("C : Site-13")
-            net.WriteString("D : Aucun")
-        net.Broadcast()
+        SCP_263.NewQuestion(ply, ent)
+    end)
+end
 
-        ent:SetIsIntroducingQuestion(true)
+function SCP_263.NewQuestion(ply, ent)
+    local KeySelected = math.random(1, #ent.QuestionsList)
+    local SelectedQuestion = ent.QuestionsList[KeySelected]
+    table.remove(ent.QuestionsList, KeySelected) --? We don't want the question to be ask twice or more.
 
-        timer.Simple(5, function()
-            if not IsValid(ent) or not IsValid(ply) then return end
+    net.Start(SCP_263_CONFIG.SetQuestions)
+        net.WriteString(SelectedQuestion.question)
+        net.WriteString("A : " .. SelectedQuestion.response_a)
+        net.WriteString("B : " .. SelectedQuestion.response_b)
+        net.WriteString("C : " .. SelectedQuestion.response_c)
+        net.WriteString("D : " .. SelectedQuestion.response_d)
+    net.Broadcast()
 
-            ent:SetIsIntroducingQuestion(false)
-            ent:SetIsWaitingAnswer(true)
-        end)
+    ent:SetActualAnswer(SelectedQuestion.correct_answer)
+    ent:SetIsIntroducingQuestion(true)
+
+    timer.Simple(5, function()
+        if not IsValid(ent) or not IsValid(ply) then return end
+
+        ent:SetIsIntroducingQuestion(false)
+        ent:SetIsWaitingAnswer(true)
     end)
 end
 
@@ -50,11 +59,13 @@ function SCP_263.CheckAnswer(ent, ply, text)
         ent:EmitSound(SCP_263_CONFIG.SoundRightAnswer)
         local CountCorrectAnswer = ent:GetCountCorrectAnswer() + 1
         ent:SetCountCorrectAnswer(CountCorrectAnswer)
-        if (CountCorrectAnswer == 3) then
+        if (CountCorrectAnswer == 3) then --? On donne la récompense et on termine la partie.
             SCP_263.RewardPlayer(ent)
             SCP_263.EndGame(ent)
+        else --? On repose une nouvelle question
+            SCP_263.NewQuestion(ply, ent)
         end
-    else
+    else --? On brule le joueur et on termine la partie.
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
         SCP_263.BurnPlayer(ply)
         SCP_263.EndGame(ent)

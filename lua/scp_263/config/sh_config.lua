@@ -71,6 +71,14 @@ QuestionList["fr"] = {
 		response_c = "Fin de l'Humanité",
 		response_d = "Fin de la Civilisation",
 	},
+	{
+		question = "Qui a fumé un énorme pétard ?",
+		correct_answer = "d",
+		response_a = "Dr Bright",
+		response_b = "John Atand",
+		response_c = "Chirac",
+		response_d = "Vous",
+	},
 }
 
 QuestionList["en"] = {
@@ -89,6 +97,14 @@ QuestionList["en"] = {
 		response_b = "No more coffee",
 		response_c = "End of Humanity",
 		response_d = "End of Civilization",
+	},
+	{
+		question = "Who smoked a huge banger?",
+		correct_answer = "d",
+		response_a = "Dr Bright",
+		response_b = "John Atand",
+		response_c = "Chirac",
+		response_d = "You",
 	},
 }
 
