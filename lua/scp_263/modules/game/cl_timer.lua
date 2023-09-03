@@ -2,7 +2,7 @@ local TimerLeft = 0
 local font = "DermaLarge"
 local textColor = Color(255, 255, 255)
 local xPosition = SCP_263_CONFIG.ScrW * 0.5
-local yPosition = SCP_263_CONFIG.ScrH * 0.05
+local yPosition = SCP_263_CONFIG.ScrH * 0.1
 
 function SCP_263.StartTimer(ent)
     TimerLeft = SCP_263_CONFIG.ClientTimeToAnswer

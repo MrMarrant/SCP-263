@@ -5,41 +5,55 @@ local Answers = {
     Answer_3 = "",
     Answer_4 = "",
 }
+local borderColor = Color(255, 0, 0)
+local borderThickness = 2
 
 -- TODO : affiche les questions au joueurs
 function SCP_263.DisplayQuestions(ent)
-    if (ActualQuestion == "" or not ActualQuestion) then return end
-    if (not ent:GetIsOn() or (not ent:GetIsWaitingAnswer() and not ent:GetIsIntroducingQuestion())) then return end
-
     local ply = LocalPlayer()
-    if (ply:GetPos():Distance(ent:GetPos()) > SCP_263_CONFIG.ClientMaximumDelimitationGame) then return end
+
+    if (not ent:GetIsOn() or ply:GetPos():Distance(ent:GetPos()) > SCP_263_CONFIG.ClientMaximumDelimitationGame) then return end
+
+    --? On affiche une bordure rouge autour de l'écran du joueur candidat du jeu.
+    if (ply == ent:GetCurrentPlayer()) then
+        -- Dessiner le contour supérieur
+        surface.SetDrawColor(borderColor)
+        surface.DrawRect(0, 0, SCP_263_CONFIG.ScrW, borderThickness)
+
+        -- Dessiner le contour inférieur
+        surface.DrawRect(0, SCP_263_CONFIG.ScrH - borderThickness, SCP_263_CONFIG.ScrW, borderThickness)
+
+        -- Dessiner le contour gauche
+        surface.DrawRect(0, 0, borderThickness, SCP_263_CONFIG.ScrH)
+
+        -- Dessiner le contour droit
+        surface.DrawRect(SCP_263_CONFIG.ScrW - borderThickness, 0, borderThickness, SCP_263_CONFIG.ScrH)
+    end
+
+    if ((not ent:GetIsWaitingAnswer() and not ent:GetIsIntroducingQuestion()) or ActualQuestion == "" or not ActualQuestion) then return end
 
     --? On affiche la question en grand au milieu de l'écran du joueur.
     if (ent:GetIsIntroducingQuestion()) then
-        surface.SetFont("SCP263_TitleQuestion")
         local WrapQuestion = SCP_263.WrapText(ActualQuestion, SCP_263_CONFIG.ScrW * 0.5, true)
 		local y = 0
 
 		for key, value in pairs(WrapQuestion) do
-			local textWidth, textHeight = surface.GetTextSize(value)
-			surface.SetTextColor(Color(255, 255, 255))
-			surface.SetTextPos(SCP_263_CONFIG.ScrW * 0.5 - textWidth * 0.5, SCP_263_CONFIG.ScrH * 0.3 + y)
-			surface.DrawText(value)
+            draw.SimpleText(value, "SCP263_TitleQuestion", SCP_263_CONFIG.ScrW * 0.5, SCP_263_CONFIG.ScrH * 0.4 + y, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 			y = y + 50
 		end
     end
     --? On affiche la question et les réponses possible.
     if (ent:GetIsWaitingAnswer()) then
         local titleWidth, titleHeight = surface.GetTextSize(ActualQuestion)
-        local titleX = SCP_263_CONFIG.ScrW * 0.5 - titleWidth * 0.5
-        local titleY = SCP_263_CONFIG.ScrH * 0.2
-        draw.SimpleText(ActualQuestion, "DermaLarge", titleX, titleY, Color(255, 255, 255), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+        local titleX = SCP_263_CONFIG.ScrW * 0.5
+        local titleY = SCP_263_CONFIG.ScrH * 0.3
+        draw.SimpleText(ActualQuestion, "SCP263_TitleQuestionThin", titleX, titleY, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
 
         -- Rectangles Dimensions
         local rectWidth = SCP_263_CONFIG.ScrW * 0.4
         local rectHeight = SCP_263_CONFIG.ScrH * 0.1
         local rectMargin = SCP_263_CONFIG.ScrW * 0.05
-        local rectStartY = SCP_263_CONFIG.ScrH * 0.3
+        local rectStartY = SCP_263_CONFIG.ScrH * 0.5
 
         for i = 1, 4 do
             local rectX = (i % 2 == 1) and rectMargin or (SCP_263_CONFIG.ScrW * 0.5 + rectMargin)
@@ -49,19 +63,19 @@ function SCP_263.DisplayQuestions(ent)
 
             local text = Answers["Answer_"..i]
             local textWidth, textHeight = surface.GetTextSize(text)
-            local textX = rectX + rectWidth * 0.5 - textWidth * 0.5
-            local textY = rectY + rectHeight * 0.5 - textHeight * 0.5
+            local textX = rectX + rectWidth * 0.5
+            local textY = rectY + rectHeight * 0.5
 
-            draw.SimpleText(text, "SCP263_Answers", textX, textY, Color(0, 0, 0), TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
+            draw.SimpleText(text, "SCP263_Answers", textX, textY, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
         end
     end
 end
 
 net.Receive(SCP_263_CONFIG.SetQuestions, function()
     ActualQuestion = net.ReadString()
-    Answer_1 = net.ReadString()
-    Answer_2 = net.ReadString()
-    Answer_3 = net.ReadString()
-    Answer_4 = net.ReadString()
+    Answers.Answer_1 = net.ReadString()
+    Answers.Answer_2 = net.ReadString()
+    Answers.Answer_3 = net.ReadString()
+    Answers.Answer_4 = net.ReadString()
 end)
 

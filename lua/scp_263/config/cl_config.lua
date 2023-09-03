@@ -11,9 +11,14 @@ surface.CreateFont( "SCP263_TitleQuestion", {
     size = 70,
 } )
 
-surface.CreateFont( "SCP263_Answers", {
+surface.CreateFont( "SCP263_TitleQuestionThin", {
     font = "Arial",
-    size = 20,
+    size = 50,
+} )
+
+surface.CreateFont( "SCP263_Answers", {
+    font = "Roboto Mono",
+    size = 25,
 } )
 
 hook.Add( "OnScreenSizeChanged", "OnScreenSizeChanged.SCP263_ScreenSize", function( oldWidth, oldHeight )
