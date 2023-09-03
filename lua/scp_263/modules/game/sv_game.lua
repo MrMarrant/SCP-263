@@ -13,6 +13,7 @@ function SCP_263.StartGame(ply, ent)
 end
 
 function SCP_263.NewQuestion(ply, ent)
+    ent:SetIsWaitingAnswer(false)
     local KeySelected = math.random(1, #ent.QuestionsList)
     local SelectedQuestion = ent.QuestionsList[KeySelected]
     table.remove(ent.QuestionsList, KeySelected) --? We don't want the question to be ask twice or more.
@@ -33,6 +34,9 @@ function SCP_263.NewQuestion(ply, ent)
 
         ent:SetIsIntroducingQuestion(false)
         ent:SetIsWaitingAnswer(true)
+        net.Start(SCP_263_CONFIG.StartTimer)
+            net.WriteEntity(ent)
+        net.Broadcast()
     end)
 end
 
@@ -53,6 +57,10 @@ function SCP_263.CheckAnswer(ent, ply, text)
     if (ent:GetActualAnswer() == "") then return end
     if (not ent:GetIsOn() or not ent:GetIsWaitingAnswer()) then return end
     if (not IsAnswerValid(text)) then return end
+
+    net.Start(SCP_263_CONFIG.StopTimer)
+        net.WriteEntity(ent)
+    net.Broadcast()
 
     local AnswerParse = string.lower(text)
 
@@ -80,7 +88,8 @@ function SCP_263.EndGame(ent)
 	ent:SetIsEndingGame(false)
     ent:SetActualAnswer("")
     ent:SetCountCorrectAnswer(0)
-    self.QuestionsList = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"] -- Reset questions list
+    local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
+	ent.QuestionsList = table.Copy( QuestionListCopy) -- Reset questions list
     ent:StopEverySounds()
-    hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. self:EntIndex())
+    hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex())
 end

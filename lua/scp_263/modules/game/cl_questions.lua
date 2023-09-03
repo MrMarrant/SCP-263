@@ -12,7 +12,7 @@ function SCP_263.DisplayQuestions(ent)
     if (not ent:GetIsOn() or (not ent:GetIsWaitingAnswer() and not ent:GetIsIntroducingQuestion())) then return end
 
     local ply = LocalPlayer()
-    if (ply:GetPos():Distance(ent:GetPos()) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then return end
+    if (ply:GetPos():Distance(ent:GetPos()) > SCP_263_CONFIG.ClientMaximumDelimitationGame) then return end
 
     --? On affiche la question en grand au milieu de l'écran du joueur.
     if (ent:GetIsIntroducingQuestion()) then
@@ -25,7 +25,7 @@ function SCP_263.DisplayQuestions(ent)
 			surface.SetTextColor(Color(255, 255, 255))
 			surface.SetTextPos(SCP_263_CONFIG.ScrW * 0.5 - textWidth * 0.5, SCP_263_CONFIG.ScrH * 0.3 + y)
 			surface.DrawText(value)
-			y = y + 30
+			y = y + 50
 		end
     end
     --? On affiche la question et les réponses possible.

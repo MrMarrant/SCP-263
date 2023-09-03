@@ -17,7 +17,21 @@ function SCP_263.StopTimer(ent)
 end
 
 function SCP_263.DisplayTimer(ent)
-    if (ent:GetIsWaitingAnswer()) then
+    if (ent:GetIsWaitingAnswer() and ent:GetIsOn()) then
         draw.SimpleText(tostring(TimerLeft), font, xPosition, yPosition, textColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
     end
 end
+
+net.Receive(SCP_263_CONFIG.StartTimer, function()
+    ent = net.ReadEntity()
+    if (not IsValid(ent)) then return end
+
+    SCP_263.StartTimer(ent)
+end)
+
+net.Receive(SCP_263_CONFIG.StopTimer, function()
+    ent = net.ReadEntity()
+    if (not IsValid(ent)) then return end
+    
+    SCP_263.StopTimer(ent)
+end)

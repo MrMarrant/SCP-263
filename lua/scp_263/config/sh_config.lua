@@ -38,6 +38,8 @@ SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/sound_effect/generic.mp3" )
 -- NET VAR
 SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
 SCP_263_CONFIG.SetConvarClientSide = "SCP_263_CONFIG.SetConvarClientSide"
+SCP_263_CONFIG.StartTimer = "SCP_263_CONFIG.StartTimer"
+SCP_263_CONFIG.StopTimer = "SCP_263_CONFIG.StopTimer"
 
 -----------GENERATE JSON FILE QUESTION-------------------
 

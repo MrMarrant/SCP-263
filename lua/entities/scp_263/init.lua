@@ -44,7 +44,8 @@ function ENT:InitVar( )
 	self:SetIsIntroducingQuestion(false)
 	self:SetActualAnswer("")
 	self:SetCountCorrectAnswer(0)
-	self.QuestionsList = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
+	local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
+	self.QuestionsList = table.Copy( QuestionListCopy)
 end
 
 -- Intialise the physic of the entity
@@ -88,9 +89,10 @@ end
 
 -- Detect if a player is too far from the tv
 function ENT:Think()
-	if (not self:GetIsOn() or self:GetIsEndingGame() or not IsValid(self:GetCurrentPlayer())) then return end
+	local ply = self:GetCurrentPlayer()
+	if (not self:GetIsOn() or self:GetIsEndingGame() or not IsValid(ply)) then return end
 	
-	local PlayerPos = self:GetCurrentPlayer():GetPos()
+	local PlayerPos = ply:GetPos()
 	local EntityPos = self:GetPos()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
