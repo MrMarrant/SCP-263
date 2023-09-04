@@ -16,23 +16,11 @@
 
 /*
 * Returns the element to be translated according to the server language.
-* @string langName Language name (ex : en, fr)
-* @table data The table contain the translations
-*/
-function SCP_263.AddLanguage(langName, data)
-    if (type(langName) == "string" and type(data) == "table") then
-        SCP_263_LANG[langName] = data
-    end
-end
-
-/*
-* Returns the element to be translated according to the server language.
 * @string name Element to translate.
 */
+-- TODO : Gérer les cas de figure avec des arguments
 function SCP_263.GetTranslation(name)
-    local langUsed = SCP_263_CONFIG.LangServer
-    if not SCP_263_LANG[langUsed] then
-        langUsed = "en" -- Default lang is EN.
-    end
-    return string.format( SCP_263_LANG[langUsed][ name ] or "Not Found" )
+    local Translation = string.format( llanguage.GetPhrase(name))
+    --? Si la valeur trouvé est différente du nom demandé, alors retourne la traduction
+    return Translation == name and "Not Found" or Translation
 end
