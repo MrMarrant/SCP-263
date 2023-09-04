@@ -24,7 +24,6 @@ local Answers = {
 local borderColor = Color(255, 0, 0)
 local borderThickness = 2
 
--- TODO : affiche les questions au joueurs
 function SCP_263.DisplayQuestions(ent)
     local ply = LocalPlayer()
 

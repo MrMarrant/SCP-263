@@ -14,10 +14,10 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-/*
+--[[
 * Returns the element to be translated according to the server language.
 * @string name Element to translate.
-*/
+--]]
 -- TODO : Gérer les cas de figure avec des arguments
 function SCP_263.GetTranslation(name)
     local Translation = string.format( llanguage.GetPhrase(name))

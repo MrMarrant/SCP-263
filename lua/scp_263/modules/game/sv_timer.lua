@@ -15,9 +15,9 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 --[[
-*   End the current game and manage every var for reset like intial.
-*   @Entity ent SCP-263
-*   @Player ply The player to hugabanga if timer hit 0.
+* End the current game and manage every var for reset like intial.
+* @Entity ent SCP-263
+* @Player ply The player to hugabanga if timer hit 0.
 --]]
 function SCP_263.InitTimer(ent, ply)
     net.Start(SCP_263_CONFIG.StartTimer)

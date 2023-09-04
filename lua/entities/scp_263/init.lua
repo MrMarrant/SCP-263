@@ -83,7 +83,6 @@ end
 function ENT:Use(ply)
 	if (not IsValid(ply) or self:GetIsOn()) then return end
 
-	-- TODO : Lancer la partie.
 	SCP_263.StartGame(ply, self)
 end
 

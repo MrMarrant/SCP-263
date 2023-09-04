@@ -15,10 +15,10 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 --[[
-*   Wrap a text to include line break into text, depend on maxWidth
-*   @string text The text to wrap
-*   @number maxWidth Max width 
-*   @boolean explode if rue, we return the result into an array
+* Wrap a text to include line break into text, depend on maxWidth
+* @string text The text to wrap
+* @number maxWidth Max width 
+* @boolean explode if rue, we return the result into an array
 --]]
 function SCP_263.WrapText(text, maxWidth, explode)
     local words = string.Explode(" ", text)

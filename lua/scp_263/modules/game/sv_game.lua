@@ -22,9 +22,9 @@ local AnswersLetter = {
 }
 
 --[[
-*   Start a new game.
-*   @Player ply The play who has send the text
-*   @Entity ent SCP-263
+* Start a new game.
+* @Player ply The play who has send the text
+* @Entity ent SCP-263
 --]]
 function SCP_263.StartGame(ply, ent)
     ent:SetIsOn(true)
@@ -41,9 +41,9 @@ function SCP_263.StartGame(ply, ent)
 end
 
 --[[
-*   Start a new question ask to the player.
-*   @Player ply The play who has send the text
-*   @Entity ent SCP-263
+* Start a new question ask to the player.
+* @Player ply The play who has send the text
+* @Entity ent SCP-263
 --]]
 function SCP_263.NewQuestion(ply, ent)
     local KeySelected = math.random(1, #ent.QuestionsList)
@@ -71,8 +71,8 @@ function SCP_263.NewQuestion(ply, ent)
 end
 
 --[[
-*   Returns if the text send, is one of the possible answers expected.
-*   @string text The text answer
+* Returns if the text send, is one of the possible answers expected.
+* @string text The text answer
 --]]
 local function IsAnswerValid(text)
     local ParseText = string.lower(text)
@@ -87,10 +87,10 @@ local function IsAnswerValid(text)
 end
 
 --[[
-*   Manage what to do depend on the answer send by the player.
-*   @Entity ent SCP-263
-*   @Player ply The play who has send the text
-*   @string text The text answer
+* Manage what to do depend on the answer send by the player.
+* @Entity ent SCP-263
+* @Player ply The play who has send the text
+* @string text The text answer
 --]]
 function SCP_263.CheckAnswer(ent, ply, text)
     if (not IsValid(ent)) then return end
@@ -130,8 +130,8 @@ function SCP_263.CheckAnswer(ent, ply, text)
 end
 
 --[[
-*   End the current game and manage every var for reset like intial.
-*   @Entity ent SCP-263
+* End the current game and manage every var for reset like intial.
+* @Entity ent SCP-263
 --]]
 function SCP_263.EndGame(ent)
     ent:SetIsOn(false)
@@ -144,4 +144,5 @@ function SCP_263.EndGame(ent)
 	ent.QuestionsList = table.Copy( QuestionListCopy) -- Reset questions list
     ent:StopEverySounds()
     hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex())
+    timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
 end
