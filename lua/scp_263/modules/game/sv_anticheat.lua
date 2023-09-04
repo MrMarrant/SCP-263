@@ -53,7 +53,6 @@ function SCP_263.InitAntiCheat(ply, ent)
             end
         end
     end )
-    -- TODO : Détecter si un joueur ouvre le menu Steam ??
     -- TODO : Détecter si un joueur ouvre l'addon de l'ordinateur ??
 end
 

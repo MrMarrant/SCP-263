@@ -61,3 +61,14 @@ hook.Add( "PlayerInitialSpawn", "PlayerInitialSpawn.SCP263_ClientConVar", functi
     SCP_263.SetConvarClientSide("ClientTimeToAnswer", SCP_263_CONFIG.TimeToAnswer:GetInt(), ply)
     SCP_263.SetConvarClientSide("ClientMaximumDelimitationGame", SCP_263_CONFIG.MaximumDelimitationGame:GetInt(), ply)
 end)
+
+-- Set Convar Int for the client side
+net.Receive(SCP_263_CONFIG.SetConvarInt, function ( len, ply )
+    if (ply:IsSuperAdmin() or game.SinglePlayer()) then
+        local name = net.ReadString()
+        local value = net.ReadUInt(14)
+        SCP_263_CONFIG[name]:SetInt(value)
+
+        SCP_263.SetConvarClientSide('Client'..name, value) --? The value clientside start with Client
+    end
+end)

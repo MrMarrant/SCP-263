@@ -19,6 +19,7 @@ util.AddNetworkString(SCP_263_CONFIG.SetConvarClientSide)
 util.AddNetworkString(SCP_263_CONFIG.StartTimer)
 util.AddNetworkString(SCP_263_CONFIG.StopTimer)
 util.AddNetworkString(SCP_263_CONFIG.HasCheated)
+util.AddNetworkString(SCP_263_CONFIG.SetConvarInt)
 
 -- The total time the player is burned
 SCP_263_CONFIG.TimeToBurn = CreateConVar( "SCP263_TimeToBurn", 42, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "The total time the player is burned", 1, 999 )

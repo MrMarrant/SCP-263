@@ -56,6 +56,15 @@ function SCP_263.WrapText(text, maxWidth, explode)
     return finalText
 end
 
+function SCP_263.SetConvarInt(name, value, ply)
+    if (ply:IsSuperAdmin() or game.SinglePlayer()) then --? Just for avoid to spam net message, we check server side to.
+        net.Start(SCP_263_CONFIG.SetConvarInt)
+            net.WriteString(name)
+            net.WriteUInt(value, 14)
+        net.SendToServer()
+    end
+end
+
 net.Receive(SCP_263_CONFIG.SetConvarClientSide, function ()
     local name = net.ReadString()
     local value = net.ReadUInt(14)
