@@ -1,9 +1,33 @@
+-- SCP-263, A representation of a paranormal object on a fictional series on the game Garry's Mod.
+-- Copyright (C) 2023  MrMarrant aka BIBI.
+
+-- This program is free software: you can redistribute it and/or modify
+-- it under the terms of the GNU General Public License as published by
+-- the Free Software Foundation, either version 3 of the License, or
+-- (at your option) any later version.
+
+-- This program is distributed in the hope that it will be useful,
+-- but WITHOUT ANY WARRANTY; without even the implied warranty of
+-- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+-- GNU General Public License for more details.
+
+-- You should have received a copy of the GNU General Public License
+-- along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+--[[
+* Burn the player x seconds depend on the value set.
+* @Player ply The player to punish
+--]]
 function SCP_263.BurnPlayer(ply)
     if (not IsValid(ply)) then return end
 
     ply:Ignite( SCP_263_CONFIG.TimeToBurn:GetInt(), 0 )
 end
 
+--[[
+* Spawn one of the reward available.
+* @Entity SCP-263
+--]]
 function SCP_263.RewardPlayer(ent)
     if (not IsValid(ent)) then return end
 
@@ -13,12 +37,12 @@ function SCP_263.RewardPlayer(ent)
     Reward:Activate()
 end
 
-/* 
+--[[
 * Set a Server Convar to ClientSide (if that sound stupid, it's because it is)
 * @string name
 * @number value
 * @Player ply
-*/
+--]]
 function SCP_263.SetConvarClientSide(name, value, ply)
     if (type( value ) == "boolean") then value = value and 1 or 0 end
     net.Start(SCP_263_CONFIG.SetConvarClientSide)
