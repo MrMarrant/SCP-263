@@ -14,7 +14,11 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
--- Detect if a player is speaking to the current player who is playing a game
+--[[
+* Detect if a player is speaking to the current player who is playing a game
+* @Player plyTalker The player who is talking.
+* @Player plyListener The player whi is listening.
+--]]
 local function DetectSpeakingToPlayer(plyTalker, plyListener)
     if not IsValid(plyTalker) or not IsValid(plyListener) then
         return false
@@ -31,6 +35,11 @@ local function DetectSpeakingToPlayer(plyTalker, plyListener)
     return DotResult >= tolerance
 end
 
+--[[
+* Start the 'anticheat' system.
+* @Player ply The player to inspect.
+* @Entity ent SCP-263
+--]]
 function SCP_263.InitAntiCheat(ply, ent)
     hook.Add( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex(), function( listener, talker )
         if (IsValid(ent) and IsValid(ply)) then
@@ -45,4 +54,16 @@ function SCP_263.InitAntiCheat(ply, ent)
         end
     end )
     -- TODO : Détecter si un joueur ouvre le menu Steam ??
+    -- TODO : Détecter si un joueur ouvre l'addon de l'ordinateur ??
 end
+
+net.Receive(SCP_263_CONFIG.HasCheated, function(len, ply)
+    local ent = net.ReadEntity()
+    if (not IsValid(ent) or not IsValid(ply)) then return end
+
+    if (ent:GetCurrentPlayer() == ply) then
+        ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
+        SCP_263.BurnPlayer(ply)
+        SCP_263.EndGame(ent)
+    end
+end)
