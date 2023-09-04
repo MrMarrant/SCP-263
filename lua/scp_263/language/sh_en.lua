@@ -14,25 +14,17 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
---[[
-* Returns the element to be translated according to the server language.
-* @string langName Language name (ex : en, fr)
-* @table data The table contain the translations
---]]
-function SCP_263.AddLanguage(langName, data)
-    if (type(langName) == "string" and type(data) == "table") then
-        SCP_263_LANG[langName] = data
-    end
-end
+local LANG_EN = {
+    Welcome = "Welcome",
+    Answer_a = "A",
+    Answer_b = "B",
+    Answer_c = "C",
+    Answer_d = "D",
 
---[[
-* Returns the element to be translated according to the server language.
-* @string name Element to translate.
---]]
-function SCP_263.GetTranslation(name)
-    local langUsed = SCP_263_CONFIG.LangServer
-    if not SCP_263_LANG[langUsed] then
-        langUsed = "en" -- Default lang is EN.
-    end
-    return string.format( SCP_263_LANG[langUsed][ name ] or "Not Found" )
-end
+    Warning_setting = "Only Super Admins can modify these values, other roles will have no effect on them.",
+    Time_to_burn = "The total time the player is burned",
+    Time_to_answer = "The total time the player has for answer the questions",
+    Maximum_delimitation_game = "The maximum distance delimitation of the game",
+}
+
+SCP_263.AddLanguage("en", LANG_EN)

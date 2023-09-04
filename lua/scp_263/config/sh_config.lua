@@ -122,7 +122,7 @@ end
 
 --? We find every file store in data folder, and load every file
 local DataSCP263 = file.Find( "data_scp263/*.json" .. "*", "DATA" ) --? Get every json files
-for key, value in pairs(DataSCP263) do
+for key, File in pairs(DataSCP263) do
 	local prefix = string.lower( string.Left( File, 2 ) ) --? Lang Prefix
-	SCP_263_CONFIG.QuestionList[prefix] = GetDataFromFile("data_scp263/" .. value)
+	SCP_263_CONFIG.QuestionList[prefix] = GetDataFromFile("data_scp263/" .. File)
 end

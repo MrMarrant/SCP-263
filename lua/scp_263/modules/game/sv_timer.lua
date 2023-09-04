@@ -24,7 +24,7 @@ function SCP_263.InitTimer(ent, ply)
         net.WriteEntity(ent)
     net.Broadcast()
 
-    timer.Create("SCP263_InitTimer_".. ent:EntIndex(), SCP_263_CONFIG.ClientTimeToAnswer, 1, function()
+    timer.Create("SCP263_InitTimer_".. ent:EntIndex(), SCP_263_CONFIG.TimeToAnswer:GetInt(), 1, function()
         if not IsValid(ent) or not IsValid(ply) then return end
 
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)

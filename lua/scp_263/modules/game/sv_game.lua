@@ -15,10 +15,10 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local AnswersLetter = {
-    "a" = true,
-    "b" = true,
-    "c" = true,
-    "d" = true
+    a = true,
+    b = true,
+    c = true,
+    d = true
 }
 
 --[[
@@ -52,10 +52,10 @@ function SCP_263.NewQuestion(ply, ent)
 
     net.Start(SCP_263_CONFIG.SetQuestions)
         net.WriteString(SelectedQuestion.question)
-        net.WriteString(SCP_263.GetTranslation("scp_263.questions.answers.a") .. SelectedQuestion.response_a)
-        net.WriteString(SCP_263.GetTranslation("scp_263.questions.answers.b") .. SelectedQuestion.response_b)
-        net.WriteString(SCP_263.GetTranslation("scp_263.questions.answers.c") .. SelectedQuestion.response_c)
-        net.WriteString(SCP_263.GetTranslation("scp_263.questions.answers.d") .. SelectedQuestion.response_d)
+        net.WriteString(SCP_263.GetTranslation("Answer_a") .. " : " .. SelectedQuestion.response_a)
+        net.WriteString(SCP_263.GetTranslation("Answer_b") .. " : "  .. SelectedQuestion.response_b)
+        net.WriteString(SCP_263.GetTranslation("Answer_c") .. " : "  .. SelectedQuestion.response_c)
+        net.WriteString(SCP_263.GetTranslation("Answer_d") .. " : "  .. SelectedQuestion.response_d)
     net.Broadcast()
 
     ent:SetActualAnswer(SelectedQuestion.correct_answer)
@@ -78,7 +78,7 @@ local function IsAnswerValid(text)
     local ParseText = string.lower(text)
     local Check = false
     for key, value in pairs(AnswersLetter) do
-        local AnswerCheck = string.lower(SCP_263.GetTranslation("scp_263.questions.answers." .. key))
+        local AnswerCheck = string.lower(SCP_263.GetTranslation("Answer_" .. key))
         if (AnswerCheck == ParseText) then
             Check = true
         end
