@@ -16,12 +16,6 @@
 
 SCP_263_CONFIG.NameFileQuestion = "_questions.json"
 
--- Every langs handled by the mod
-SCP_263_CONFIG.HandledLanguage = {
-    "fr",
-    "en",
-}
-
 -- Every models that can be rewarded
 SCP_263_CONFIG.ModelsReward = {
     "models/food/burger.mdl",
@@ -117,10 +111,16 @@ if not file.Exists("data_scp263", "DATA") then
 end
 
 --? We create the file if it don't exist with the default params, and we load the file when everythig is set up.
-for key, value in pairs(SCP_263_CONFIG.HandledLanguage) do
-    local FilePath= "data_scp263/" .. value .. SCP_263_CONFIG.NameFileQuestion
+for key, value in pairs(QuestionList) do
+    local FilePath= "data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion
     if not file.Exists(FilePath, "DATA") then
-        file.Write(FilePath, util.TableToJSON( QuestionList[value], true ))
+        file.Write(FilePath, util.TableToJSON( value, true ))
     end
-    SCP_263_CONFIG.QuestionList[value] = GetDataFromFile("data_scp263/" .. value .. SCP_263_CONFIG.NameFileQuestion)
+end
+
+--? We find every file store in data folder, and load every file
+local DataSCP263 = file.Find( "data_scp263/*.json" .. "*", "DATA" ) --? Get every json files
+for key, value in pairs(DataSCP263) do
+	local prefix = string.lower( string.Left( File, 2 ) ) --? Lang Prefix
+	SCP_263_CONFIG.QuestionList[prefix] = GetDataFromFile("data_scp263/" .. value)
 end
