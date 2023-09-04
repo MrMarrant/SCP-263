@@ -1,3 +1,15 @@
+local AnswersLetter = {
+    "a" = true,
+    "b" = true,
+    "c" = true,
+    "d" = true
+}
+
+--[[
+*   Start a new game.
+*   @Player ply The play who has send the text
+*   @Entity ent SCP-263
+--]]
 function SCP_263.StartGame(ply, ent)
     ent:SetIsOn(true)
     ent:SetCurrentPlayer(ply)
@@ -12,8 +24,12 @@ function SCP_263.StartGame(ply, ent)
     end)
 end
 
+--[[
+*   Start a new question ask to the player.
+*   @Player ply The play who has send the text
+*   @Entity ent SCP-263
+--]]
 function SCP_263.NewQuestion(ply, ent)
-    ent:SetIsWaitingAnswer(false)
     local KeySelected = math.random(1, #ent.QuestionsList)
     local SelectedQuestion = ent.QuestionsList[KeySelected]
     table.remove(ent.QuestionsList, KeySelected) --? We don't want the question to be ask twice or more.
@@ -34,17 +50,19 @@ function SCP_263.NewQuestion(ply, ent)
 
         ent:SetIsIntroducingQuestion(false)
         ent:SetIsWaitingAnswer(true)
-        net.Start(SCP_263_CONFIG.StartTimer)
-            net.WriteEntity(ent)
-        net.Broadcast()
+        SCP_263.InitTimer(ent, ply)
     end)
 end
 
+--[[
+*   Returns if the text send, is one of the possible answers expected.
+*   @string text The text answer
+--]]
 local function IsAnswerValid(text)
     local ParseText = string.lower(text)
     local Check = false
-    for i = 1, 4 do
-        local AnswerCheck = string.lower(SCP_263.GetTranslation("Answer_" .. i))
+    for key, value in pairs(AnswersLetter) do
+        local AnswerCheck = string.lower(SCP_263.GetTranslation("scp_263.questions.answers." .. key))
         if (AnswerCheck == ParseText) then
             Check = true
         end
@@ -52,12 +70,19 @@ local function IsAnswerValid(text)
     return Check
 end
 
+--[[
+*   Manage what to do depend on the answer send by the player.
+*   @Entity ent SCP-263
+*   @Player ply The play who has send the text
+*   @string text The text answer
+--]]
 function SCP_263.CheckAnswer(ent, ply, text)
     if (not IsValid(ent)) then return end
     if (ent:GetActualAnswer() == "") then return end
     if (not ent:GetIsOn() or not ent:GetIsWaitingAnswer()) then return end
     if (not IsAnswerValid(text)) then return end
 
+    ent:SetIsWaitingAnswer(false)
     net.Start(SCP_263_CONFIG.StopTimer)
         net.WriteEntity(ent)
     net.Broadcast()
@@ -68,11 +93,18 @@ function SCP_263.CheckAnswer(ent, ply, text)
         ent:EmitSound(SCP_263_CONFIG.SoundRightAnswer)
         local CountCorrectAnswer = ent:GetCountCorrectAnswer() + 1
         ent:SetCountCorrectAnswer(CountCorrectAnswer)
+        timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
         if (CountCorrectAnswer == 3) then --? On donne la récompense et on termine la partie.
+            --TODO : Réponse de Victoire du jeu
             SCP_263.RewardPlayer(ent)
             SCP_263.EndGame(ent)
         else --? On repose une nouvelle question
-            SCP_263.NewQuestion(ply, ent)
+            --TODO : Réponse de Bonne Réponse
+            timer.Simple(3, function()
+                if not IsValid(ent) or not IsValid(ply) then return end
+        
+                SCP_263.NewQuestion(ply, ent)
+            end)
         end
     else --? On brule le joueur et on termine la partie.
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
@@ -81,6 +113,10 @@ function SCP_263.CheckAnswer(ent, ply, text)
     end
 end
 
+--[[
+*   End the current game and manage every var for reset like intial.
+*   @Entity ent SCP-263
+--]]
 function SCP_263.EndGame(ent)
     ent:SetIsOn(false)
     ent:SetCurrentPlayer(nil)

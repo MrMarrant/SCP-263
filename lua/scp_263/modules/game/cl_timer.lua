@@ -1,8 +1,6 @@
 local TimerLeft = 0
 local font = "DermaLarge"
 local textColor = Color(255, 255, 255)
-local xPosition = SCP_263_CONFIG.ScrW * 0.5
-local yPosition = SCP_263_CONFIG.ScrH * 0.1
 
 function SCP_263.StartTimer(ent)
     TimerLeft = SCP_263_CONFIG.ClientTimeToAnswer
@@ -18,7 +16,7 @@ end
 
 function SCP_263.DisplayTimer(ent)
     if (ent:GetIsWaitingAnswer() and ent:GetIsOn()) then
-        draw.SimpleText(tostring(TimerLeft), font, xPosition, yPosition, textColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
+        draw.SimpleText(tostring(TimerLeft), font, SCP_263_CONFIG.ScrW * 0.5, SCP_263_CONFIG.ScrH * 0.1, textColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
     end
 end
 
