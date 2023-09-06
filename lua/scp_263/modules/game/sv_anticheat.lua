@@ -40,29 +40,24 @@ end
 * @Player ply The player to inspect.
 * @Entity ent SCP-263
 --]]
+-- TODO : Fonctionne quand un joueur PEUT entendre un autre, et non quand un joueur parle et un autre l'entend
 function SCP_263.InitAntiCheat(ply, ent)
     hook.Add( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex(), function( listener, talker )
         if (IsValid(ent) and IsValid(ply)) then
             if (listener == ply and ent:GetIsOn() and ent:GetIsWaitingAnswer()) then
                 local IsCheating = DetectSpeakingToPlayer(talker, listener)
                 if (IsCheating) then
+                    ent:SetSkin(4)
                     ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
-                    SCP_263.BurnPlayer(ply)
-                    SCP_263.EndGame(ent)
+                    timer.Simple(3, function()
+                        if (IsValid(ent)) then
+                            SCP_263.BurnPlayer(ply)
+                            SCP_263.EndGame(ent)
+                        end
+                    end)
                 end
             end
         end
     end )
     -- TODO : Détecter si un joueur ouvre l'addon de l'ordinateur ??
 end
-
-net.Receive(SCP_263_CONFIG.HasCheated, function(len, ply)
-    local ent = net.ReadEntity()
-    if (not IsValid(ent) or not IsValid(ply)) then return end
-
-    if (ent:GetCurrentPlayer() == ply) then
-        ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
-        SCP_263.BurnPlayer(ply)
-        SCP_263.EndGame(ent)
-    end
-end)

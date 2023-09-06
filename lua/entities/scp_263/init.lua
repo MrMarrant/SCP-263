@@ -19,10 +19,13 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "models/props_c17/tv_monitor01.mdl" ) -- TODO : Mettre le modèle
+	self:SetModel( "models/scp_263/scp_263.mdl" ) -- TODO : Mettre le modèle
 	self:InitVar()
+	self:SetSkin(0)
 	self:RebuildPhysics()
 	hook.Add("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex(), function(ply, text)
+		if (ply != self:GetCurrentPlayer()) then return end
+
         SCP_263.CheckAnswer(self, ply, text)
     end)
 	-- ? if the player died during a game, we end the game.
@@ -30,7 +33,11 @@ function ENT:Initialize()
 		local CurrentPlayer = self:GetCurrentPlayer()
 		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
 			if (victim == CurrentPlayer) then
-				SCP_263.EndGame(self)
+				timer.Simple(3, function()
+					if (IsValid(self)) then
+						SCP_263.EndGame(self)
+					end
+				end)
 			end
 		end
 	end)
@@ -84,6 +91,7 @@ end
 function ENT:Use(ply)
 	if (not IsValid(ply) or self:GetIsOn()) then return end
 
+	self:SetSkin(1)
 	SCP_263.StartGame(ply, self)
 end
 
@@ -96,7 +104,12 @@ function ENT:Think()
 	local EntityPos = self:GetPos()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
-		SCP_263.BurnPlayer(ply)
-        SCP_263.EndGame(self)
+		self:SetSkin(3)
+		timer.Simple(3, function()
+			if (IsValid(self)) then
+				SCP_263.BurnPlayer(ply)
+				SCP_263.EndGame(self)
+			end
+		end)
 	end
 end

@@ -38,7 +38,6 @@ SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
 SCP_263_CONFIG.SetConvarClientSide = "SCP_263_CONFIG.SetConvarClientSide"
 SCP_263_CONFIG.StartTimer = "SCP_263_CONFIG.StartTimer"
 SCP_263_CONFIG.StopTimer = "SCP_263_CONFIG.StopTimer"
-SCP_263_CONFIG.HasCheated = "SCP_263_CONFIG.HasCheated"
 SCP_263_CONFIG.SetConvarInt = "SCP_263_CONFIG.SetConvarInt"
 
 -----------GENERATE JSON FILE QUESTION-------------------

@@ -30,10 +30,3 @@ end
 function ENT:OnRemove()
     hook.Remove("HUDPaint", "HUDPaint.SCP263_DisplayQuestions_".. self:EntIndex())
 end
-
-function ENT:Think()
-    local ply = LocalPlayer()
-    if (self:GetCurrentPlayer() == ply) then
-        SCP_263.IsSteamMenuOpen(ply, self)
-    end
-end

@@ -18,7 +18,6 @@ util.AddNetworkString(SCP_263_CONFIG.SetQuestions)
 util.AddNetworkString(SCP_263_CONFIG.SetConvarClientSide)
 util.AddNetworkString(SCP_263_CONFIG.StartTimer)
 util.AddNetworkString(SCP_263_CONFIG.StopTimer)
-util.AddNetworkString(SCP_263_CONFIG.HasCheated)
 util.AddNetworkString(SCP_263_CONFIG.SetConvarInt)
 
 -- The total time the player is burned

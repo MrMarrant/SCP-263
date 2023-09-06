@@ -29,14 +29,16 @@ local AnswersLetter = {
 function SCP_263.StartGame(ply, ent)
     ent:SetIsOn(true)
     ent:SetCurrentPlayer(ply)
-    SCP_263.InitAntiCheat(ply, ent)
+    --SCP_263.InitAntiCheat(ply, ent)
     ent:EmitSound(SCP_263_CONFIG.SoundGenericIntro, 75, math.random( 100, 110 ))
     ent:EmitSound(SCP_263_CONFIG.SoundApplauseGeneric, 75, math.random( 100, 110 ))
     -- TODO : Lancer le générique
 
     timer.Simple(3, function()
         if not IsValid(ent) or not IsValid(ply) then return end
+        if (not ent:GetIsOn()) then return end
 
+        ent:SetSkin(6)
         SCP_263.NewQuestion(ply, ent)
     end)
 end
@@ -47,6 +49,7 @@ end
 * @Entity ent SCP-263
 --]]
 function SCP_263.NewQuestion(ply, ent)
+    ent:SetSkin(6)
     local KeySelected = math.random(1, #ent.QuestionsList)
     local SelectedQuestion = ent.QuestionsList[KeySelected]
     table.remove(ent.QuestionsList, KeySelected) --? We don't want the question to be ask twice or more.
@@ -64,7 +67,9 @@ function SCP_263.NewQuestion(ply, ent)
 
     timer.Simple(5, function()
         if not IsValid(ent) or not IsValid(ply) then return end
+        if (not ent:GetIsOn()) then return end
 
+        ent:SetSkin(5)
         ent:SetIsIntroducingQuestion(false)
         ent:SetIsWaitingAnswer(true)
         SCP_263.InitTimer(ent, ply)
@@ -114,10 +119,16 @@ function SCP_263.CheckAnswer(ent, ply, text)
         timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
         if (CountCorrectAnswer == 3) then --? On donne la récompense et on termine la partie.
             --TODO : Réponse de Victoire du jeu
+            ent:SetSkin(7)
             SCP_263.RewardPlayer(ent)
-            SCP_263.EndGame(ent)
+            timer.Simple(3, function()
+                if (IsValid(ent)) then
+                    SCP_263.EndGame(ent)
+                end
+            end)
         else --? On repose une nouvelle question
             --TODO : Réponse de Bonne Réponse
+            ent:SetSkin(2)
             timer.Simple(3, function()
                 if not IsValid(ent) or not IsValid(ply) then return end
         
@@ -125,9 +136,14 @@ function SCP_263.CheckAnswer(ent, ply, text)
             end)
         end
     else --? On brule le joueur et on termine la partie.
+        ent:SetSkin(3)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
-        SCP_263.BurnPlayer(ply)
-        SCP_263.EndGame(ent)
+        timer.Simple(3, function()
+            if (IsValid(ent)) then
+                SCP_263.BurnPlayer(ply)
+                SCP_263.EndGame(ent)
+            end
+        end)
     end
 end
 
@@ -136,6 +152,7 @@ end
 * @Entity ent SCP-263
 --]]
 function SCP_263.EndGame(ent)
+    ent:SetSkin(0)
     ent:SetIsOn(false)
     ent:SetCurrentPlayer(nil)
     ent:SetIsWaitingAnswer(false)
