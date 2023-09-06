@@ -1,0 +1,25 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "scp_263/generic"
+	"$phong" "1"
+	"$phongexponent" "40"
+	"$phongboost" "3"
+	"$phongfresnelranges" "[.05 .6 1]"
+	"$halflambert" "1"
+ "LightmappedGeneric"
+    {
+      $basetexture "scp_263/generic"
+      $selfillum "1"
+    }
+
+ "Proxies"
+   {
+      "AnimatedTexture"
+      {
+         "animatedtexturevar" "$basetexture"
+         "animatedtextureframenumvar" "$frame"
+         "animatedtextureframerate" 5
+      }
+   }
+	"$model" 1
+}

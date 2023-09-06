@@ -31,6 +31,7 @@ function SCP_263.StartGame(ply, ent)
     ent:SetCurrentPlayer(ply)
     SCP_263.InitAntiCheat(ply, ent)
     ent:EmitSound(SCP_263_CONFIG.SoundGenericIntro, 75, math.random( 100, 110 ))
+    ent:EmitSound(SCP_263_CONFIG.SoundApplauseGeneric, 75, math.random( 100, 110 ))
     -- TODO : Lancer le générique
 
     timer.Simple(3, function()
@@ -107,6 +108,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
 
     if (AnswerParse == string.lower(ent:GetActualAnswer())) then
         ent:EmitSound(SCP_263_CONFIG.SoundRightAnswer)
+        ent:EmitSound(SCP_263_CONFIG.SoundApplause, 75, math.random( 100, 110 ))
         local CountCorrectAnswer = ent:GetCountCorrectAnswer() + 1
         ent:SetCountCorrectAnswer(CountCorrectAnswer)
         timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée

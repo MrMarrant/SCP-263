@@ -29,6 +29,10 @@ SCP_263_CONFIG.SoundRightAnswer = Sound( "" )
 
 SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/sound_effect/generic.mp3" )
 
+SCP_263_CONFIG.SoundApplauseGeneric = Sound( "scp_263/sound_effect/applause_generic.mp3" )
+
+SCP_263_CONFIG.SoundApplause = Sound( "scp_263/sound_effect/applause.mp3" )
+
 -- NET VAR
 SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
 SCP_263_CONFIG.SetConvarClientSide = "SCP_263_CONFIG.SetConvarClientSide"

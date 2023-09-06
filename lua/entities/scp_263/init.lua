@@ -66,6 +66,7 @@ end
 
 function ENT:StopEverySounds( )
 	self:StopSound(SCP_263_CONFIG.SoundGenericIntro)
+	self:StopSound(SCP_263_CONFIG.SoundApplause)
 end
 
 -- Use specially for the physics sounds
