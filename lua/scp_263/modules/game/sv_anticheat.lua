@@ -47,6 +47,7 @@ function SCP_263.InitAntiCheat(ply, ent)
             if (listener == ply and ent:GetIsOn() and ent:GetIsWaitingAnswer()) then
                 local IsCheating = DetectSpeakingToPlayer(talker, listener)
                 if (IsCheating) then
+                    ent:SetIsEndingGame(true)
                     ent:SetSkin(4)
                     ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
                     timer.Simple(3, function()

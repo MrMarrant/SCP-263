@@ -36,7 +36,7 @@ function SCP_263.StartGame(ply, ent)
 
     timer.Simple(3, function()
         if not IsValid(ent) or not IsValid(ply) then return end
-        if (not ent:GetIsOn()) then return end
+        if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
 
         ent:SetSkin(6)
         SCP_263.NewQuestion(ply, ent)
@@ -67,7 +67,7 @@ function SCP_263.NewQuestion(ply, ent)
 
     timer.Simple(5, function()
         if not IsValid(ent) or not IsValid(ply) then return end
-        if (not ent:GetIsOn()) then return end
+        if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
 
         ent:SetSkin(5)
         ent:SetIsIntroducingQuestion(false)
@@ -121,6 +121,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
             --TODO : Réponse de Victoire du jeu
             ent:SetSkin(7)
             SCP_263.RewardPlayer(ent)
+            ent:SetIsEndingGame(true)
             timer.Simple(3, function()
                 if (IsValid(ent)) then
                     SCP_263.EndGame(ent)
@@ -131,11 +132,13 @@ function SCP_263.CheckAnswer(ent, ply, text)
             ent:SetSkin(2)
             timer.Simple(3, function()
                 if not IsValid(ent) or not IsValid(ply) then return end
+                if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
         
                 SCP_263.NewQuestion(ply, ent)
             end)
         end
     else --? On brule le joueur et on termine la partie.
+        ent:SetIsEndingGame(true)
         ent:SetSkin(3)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
         timer.Simple(3, function()

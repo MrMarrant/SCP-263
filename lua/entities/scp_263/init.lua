@@ -33,6 +33,8 @@ function ENT:Initialize()
 		local CurrentPlayer = self:GetCurrentPlayer()
 		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
 			if (victim == CurrentPlayer) then
+				ent:SetIsEndingGame(true)
+				ent:SetSkin(3)
 				timer.Simple(3, function()
 					if (IsValid(self)) then
 						SCP_263.EndGame(self)
@@ -105,6 +107,7 @@ function ENT:Think()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
 		self:SetSkin(3)
+		self:SetIsEndingGame(true)
 		timer.Simple(3, function()
 			if (IsValid(self)) then
 				SCP_263.BurnPlayer(ply)

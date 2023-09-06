@@ -27,6 +27,7 @@ function SCP_263.InitTimer(ent, ply)
     timer.Create("SCP263_InitTimer_".. ent:EntIndex(), SCP_263_CONFIG.TimeToAnswer:GetInt(), 1, function()
         if not IsValid(ent) or not IsValid(ply) then return end
 
+        ent:SetIsEndingGame(true)
         ent:SetSkin(3)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
         timer.Simple(3, function()
