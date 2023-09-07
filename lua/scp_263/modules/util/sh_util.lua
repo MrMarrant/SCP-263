@@ -18,6 +18,9 @@
 * Function used for get every players in sphere and filter.
 * @Entity ent The entity center of the sphere.
 --]]
+
+local AnnouncerBase = "scp_263/announcer/"
+
 function SCP_263.GetInSpherePlayers(ent, radius)
     local tableFilter = {}
     local entsFound = ents.FindInSphere( ent:GetPos(), radius )
@@ -27,4 +30,11 @@ function SCP_263.GetInSpherePlayers(ent, radius)
         end
     end
     return tableFilter, entsFound
+end
+
+function SCP_263.GetAnnouncer(ent, id)
+    local Prefix = SCP_263_CONFIG.SoundLangHandled[SCP_263_CONFIG.LangServer] and SCP_263_CONFIG.LangServer or "en"
+    local SoundToPlay = AnnouncerBase..Prefix.."/"..id.."_"..math.random(1, 2)..".mp3"
+
+    ent:EmitSound(SoundToPlay)
 end

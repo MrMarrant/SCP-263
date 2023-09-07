@@ -19,7 +19,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "models/scp_263/scp_263.mdl" ) -- TODO : Mettre le modèle
+	self:SetModel( "models/scp_263/scp_263.mdl" )
 	self:InitVar()
 	self:SetSkin(0)
 	self:RebuildPhysics()
@@ -35,6 +35,7 @@ function ENT:Initialize()
 			if (victim == CurrentPlayer) then
 				ent:SetIsEndingGame(true)
 				ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+				SCP_263.GetAnnouncer(ent, "player_death")
 				ent:SetSkin(3)
 				timer.Simple(3, function()
 					if (IsValid(self)) then
@@ -113,6 +114,7 @@ function ENT:Think()
 		self:SetIsEndingGame(true)
 		self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
 		self:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
+		SCP_263.GetAnnouncer(self, "run_away")
 		timer.Simple(3, function()
 			if (IsValid(self)) then
 				SCP_263.BurnPlayer(ply)
