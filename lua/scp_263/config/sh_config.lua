@@ -18,7 +18,7 @@ SCP_263_CONFIG.NameFileQuestion = "_questions.json"
 
 -- Every models that can be rewarded
 SCP_263_CONFIG.ModelsReward = {
-    "models/food/burger.mdl",
+    "models/scp_263/scp_173.mdl",
     "models/food/hotdog.mdl",
     "models/player/items/humans/top_hat.mdl",
 }
