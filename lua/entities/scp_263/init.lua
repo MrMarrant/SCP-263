@@ -34,6 +34,7 @@ function ENT:Initialize()
 		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
 			if (victim == CurrentPlayer) then
 				ent:SetIsEndingGame(true)
+				ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
 				ent:SetSkin(3)
 				timer.Simple(3, function()
 					if (IsValid(self)) then
@@ -74,8 +75,10 @@ function ENT:OnRemove( )
 end
 
 function ENT:StopEverySounds( )
+	self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
 	self:StopSound(SCP_263_CONFIG.SoundGenericIntro)
 	self:StopSound(SCP_263_CONFIG.SoundApplause)
+	self:StopSound(SCP_263_CONFIG.SoundBoo)
 end
 
 -- Use specially for the physics sounds
@@ -108,6 +111,8 @@ function ENT:Think()
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
 		self:SetSkin(3)
 		self:SetIsEndingGame(true)
+		self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+		self:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
 		timer.Simple(3, function()
 			if (IsValid(self)) then
 				SCP_263.BurnPlayer(ply)

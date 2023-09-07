@@ -34,7 +34,7 @@ function SCP_263.StartGame(ply, ent)
     ent:EmitSound(SCP_263_CONFIG.SoundApplauseGeneric, 75, math.random( 100, 110 ))
     -- TODO : Lancer le générique
 
-    timer.Simple(3, function()
+    timer.Simple(25, function()
         if not IsValid(ent) or not IsValid(ply) then return end
         if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
 
@@ -69,6 +69,7 @@ function SCP_263.NewQuestion(ply, ent)
         if not IsValid(ent) or not IsValid(ply) then return end
         if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
 
+        ent:StartLoopingSound(SCP_263_CONFIG.SoundTimerDecay)
         ent:SetSkin(5)
         ent:SetIsIntroducingQuestion(false)
         ent:SetIsWaitingAnswer(true)
@@ -104,6 +105,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
     if (not ent:GetIsOn() or not ent:GetIsWaitingAnswer()) then return end
     if (not IsAnswerValid(text)) then return end
 
+    ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
     ent:SetIsWaitingAnswer(false)
     net.Start(SCP_263_CONFIG.StopTimer)
         net.WriteEntity(ent)
@@ -113,7 +115,6 @@ function SCP_263.CheckAnswer(ent, ply, text)
 
     if (AnswerParse == string.lower(ent:GetActualAnswer())) then
         ent:EmitSound(SCP_263_CONFIG.SoundRightAnswer)
-        ent:EmitSound(SCP_263_CONFIG.SoundApplause, 75, math.random( 100, 110 ))
         local CountCorrectAnswer = ent:GetCountCorrectAnswer() + 1
         ent:SetCountCorrectAnswer(CountCorrectAnswer)
         timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
@@ -122,13 +123,15 @@ function SCP_263.CheckAnswer(ent, ply, text)
             ent:SetSkin(7)
             SCP_263.RewardPlayer(ent)
             ent:SetIsEndingGame(true)
-            timer.Simple(3, function()
+            ent:EmitSound(SCP_263_CONFIG.SoundApplauseWin, 75, math.random( 100, 110 ))
+            timer.Simple(20, function()
                 if (IsValid(ent)) then
                     SCP_263.EndGame(ent)
                 end
             end)
         else --? On repose une nouvelle question
             --TODO : Réponse de Bonne Réponse
+            ent:EmitSound(SCP_263_CONFIG.SoundApplause, 75, math.random( 100, 110 ))
             ent:SetSkin(2)
             timer.Simple(3, function()
                 if not IsValid(ent) or not IsValid(ply) then return end

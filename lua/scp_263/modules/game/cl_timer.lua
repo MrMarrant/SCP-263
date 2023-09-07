@@ -18,6 +18,10 @@ local TimerLeft = 0
 local font = "DermaLarge"
 local textColor = Color(255, 255, 255)
 
+--[[
+* Start the timer client side
+* @Entity ent SCP-263
+--]]
 function SCP_263.StartTimer(ent)
     TimerLeft = SCP_263_CONFIG.ClientTimeToAnswer
     timer.Create("SCP263_StartTimer_".. ent:EntIndex(), 1, TimerLeft, function()
@@ -25,11 +29,19 @@ function SCP_263.StartTimer(ent)
     end)
 end
 
+--[[
+* Stop the timer client side
+* @Entity ent SCP-263
+--]]
 function SCP_263.StopTimer(ent)
     TimerLeft = 0
     timer.Remove("SCP263_StartTimer_".. ent:EntIndex())
 end
 
+--[[
+* Display the timer client on nearby players
+* @Entity ent SCP-263
+--]]
 function SCP_263.DisplayTimer(ent)
     if (ent:GetIsWaitingAnswer() and ent:GetIsOn()) then
         draw.SimpleText(tostring(TimerLeft), font, SCP_263_CONFIG.ScrW * 0.5, SCP_263_CONFIG.ScrH * 0.1, textColor, TEXT_ALIGN_CENTER, TEXT_ALIGN_TOP)
