@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "scp_263/reward/TVback"
+	"$bumpmap" "scp_263/reward/TVback_normal"
+}

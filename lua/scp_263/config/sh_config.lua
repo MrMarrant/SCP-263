@@ -19,8 +19,8 @@ SCP_263_CONFIG.NameFileQuestion = "_questions.json"
 -- Every models that can be rewarded
 SCP_263_CONFIG.ModelsReward = {
     "models/scp_263/scp_173.mdl",
-    "models/food/hotdog.mdl",
-    "models/player/items/humans/top_hat.mdl",
+    "models/scp_263/scp_682.mdl",
+    "models/scp_263/he_smile.mdl",
 }
 
 SCP_263_CONFIG.SoundWrongAnswer = Sound( "scp_263/sound_effect/bad_answer.mp3" )
