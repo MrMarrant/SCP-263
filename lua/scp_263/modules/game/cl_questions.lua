@@ -54,7 +54,7 @@ function SCP_263.DisplayQuestions(ent)
 
 		for key, value in pairs(WrapQuestion) do
             draw.SimpleText(value, "SCP263_TitleQuestion", SCP_263_CONFIG.ScrW * 0.5, SCP_263_CONFIG.ScrH * 0.4 + y, Color(255, 255, 255), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
-			y = y + 50
+			y = y + 80
 		end
     end
     --? On affiche la question et les réponses possible.
@@ -80,8 +80,13 @@ function SCP_263.DisplayQuestions(ent)
             local textWidth, textHeight = surface.GetTextSize(text)
             local textX = rectX + rectWidth * 0.5
             local textY = rectY + rectHeight * 0.5
+            local WrapAnswer = SCP_263.WrapText(text, SCP_263_CONFIG.ScrW * 0.3, true)
+            if(#WrapAnswer > 3) then textY = textY - 35 end --? Not the best solution for handle this, but , huh, lazy
 
-            draw.SimpleText(text, "SCP263_Answers", textX, textY, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+            for key, value in pairs(WrapAnswer) do
+                draw.SimpleText(value, "SCP263_Answers", textX, textY, Color(0, 0, 0), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER)
+                textY = textY + 20
+            end
         end
     end
 end

@@ -142,7 +142,7 @@ QuestionList["fr"] = {
 	},
 	{
 		question = "Et maintenant, on est ... ?",
-		correct_answer = "b",
+		correct_answer = "c",
 		response_a = "Pas Cool",
 		response_b = "Bien",
 		response_c = "Cool",
@@ -272,7 +272,7 @@ QuestionList["en"] = {
 		response_d = "A huge weed",
 	},
     {
-		question = "Who does the ethics committee obey?",
+		question = "Who does the ethics committee obey ?",
 		correct_answer = "a",
 		response_a = "To the Council O5",
 		response_b = "The representatives of council 05",
@@ -288,7 +288,7 @@ QuestionList["en"] = {
 		response_d = "Field agent training",
 	},
 	{
-		question = "Under what circumstances should the FIM Lambda-5 be called?",
+		question = "Under what circumstances should the FIM Lambda-5 be called ?",
 		correct_answer = "a",
 		response_a = "During a MAGENTA code",
 		response_b = "During a BLACK code",
@@ -304,7 +304,7 @@ QuestionList["en"] = {
 		response_d = "To set limits for the foundation",
 	},
     {
-		question = "If a staff revolt breaks out, which Fim should intervene?",
+		question = "If a staff revolt breaks out, which Fim should intervene ?",
 		correct_answer = "c",
 		response_a = "The Alpha-1",
 		response_b = "The Omega-1",
@@ -312,7 +312,7 @@ QuestionList["en"] = {
 		response_d = "The Omicron Rhô",
 	},
 	{
-		question = "Who is Bobble/Pompon the Clown?",
+		question = "Who is Bobble the Clown?",
 		correct_answer = "a",
 		response_a = "A clown visible only to children",
 		response_b = "SCP-2094",
@@ -345,7 +345,7 @@ QuestionList["en"] = {
 	},
 	{
 		question = "Are we ... yet ?",
-		correct_answer = "b",
+		correct_answer = "c",
 		response_a = "Not Cool",
 		response_b = "Good",
 		response_c = "Cool",
@@ -400,7 +400,7 @@ QuestionList["en"] = {
 		response_d = "SCP-002",
 	},
 	{
-		question = "What is ████████?",
+		question = "What is ████████ ?",
 		correct_answer = "d",
 		response_a = "●●|●●●●●|●●|●",
 		response_b = "He's alive",
