@@ -21,6 +21,8 @@ local LANG_FR = {
     Answer_c = "C",
     Answer_d = "D",
 
+    tuto_answer = "Répondez aux questions en écrivant la lettre correcte dans le chat",
+
     Warning_setting = "Seuls les Super Admins peuvent modifier ces valeurs, les autres rôles n'auront aucun effet sur ces valeurs.",
     Time_to_burn = "Le temps total pendant lequel un joueur est brûlé",
     Time_to_answer = "Le temps total dont dispose le joueur pour répondre aux questions",

@@ -33,11 +33,11 @@ function ENT:Initialize()
 		local CurrentPlayer = self:GetCurrentPlayer()
 		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
 			if (victim == CurrentPlayer) then
-				ent:SetIsEndingGame(true)
-				ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
-				SCP_263.GetAnnouncer(ent, "player_death")
-				ent:SetSkin(3)
-				timer.Simple(3, function()
+				self:SetIsEndingGame(true)
+				self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+				SCP_263.GetAnnouncer(self, "player_death")
+				self:SetSkin(3)
+				timer.Simple(12, function()
 					if (IsValid(self)) then
 						SCP_263.EndGame(self)
 					end
@@ -96,6 +96,7 @@ end
 -- Switch on the tv if it's off
 function ENT:Use(ply)
 	if (not IsValid(ply) or self:GetIsOn()) then return end
+	if (ply.SCP263_IsBurned) then return end
 
 	self:SetSkin(1)
 	SCP_263.StartGame(ply, self)
@@ -115,7 +116,7 @@ function ENT:Think()
 		self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
 		self:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
 		SCP_263.GetAnnouncer(self, "run_away")
-		timer.Simple(3, function()
+		timer.Simple(9, function()
 			if (IsValid(self)) then
 				SCP_263.BurnPlayer(ply)
 				SCP_263.EndGame(self)

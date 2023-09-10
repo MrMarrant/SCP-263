@@ -36,5 +36,10 @@ function SCP_263.GetAnnouncer(ent, id)
     local Prefix = SCP_263_CONFIG.SoundLangHandled[SCP_263_CONFIG.LangServer] and SCP_263_CONFIG.LangServer or "en"
     local SoundToPlay = AnnouncerBase..Prefix.."/"..id.."_"..math.random(1, 2)..".mp3"
 
+    if (ent.LastAnnouncer) then
+        ent:StopSound(ent.LastAnnouncer)
+    end
+
     ent:EmitSound(SoundToPlay)
+    ent.LastAnnouncer = SoundToPlay
 end

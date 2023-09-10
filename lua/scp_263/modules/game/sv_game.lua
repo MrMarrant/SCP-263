@@ -29,12 +29,13 @@ local AnswersLetter = {
 function SCP_263.StartGame(ply, ent)
     ent:SetIsOn(true)
     ent:SetCurrentPlayer(ply)
-    --SCP_263.InitAntiCheat(ply, ent)
+    ply:ChatPrint( SCP_263.GetTranslation("tuto_answer") )
+    SCP_263.InitAntiCheat(ply, ent)
     ent:EmitSound(SCP_263_CONFIG.SoundGenericIntro, 75, math.random( 100, 110 ))
     ent:EmitSound(SCP_263_CONFIG.SoundApplauseGeneric, 75, math.random( 100, 110 ))
     SCP_263.GetAnnouncer(ent, "generic")
 
-    timer.Simple(25, function()
+    timer.Create("SCP263_StartGame_".. ent:EntIndex(), 20, 1, function()
         if not IsValid(ent) or not IsValid(ply) then return end
         if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
 
@@ -65,7 +66,7 @@ function SCP_263.NewQuestion(ply, ent)
     ent:SetActualAnswer(SelectedQuestion.correct_answer)
     ent:SetIsIntroducingQuestion(true)
 
-    timer.Simple(5, function()
+    timer.Create("SCP263_NewQuestion_".. ent:EntIndex(), 5, 1, function()
         if not IsValid(ent) or not IsValid(ply) then return end
         if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
 
@@ -133,7 +134,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
             ent:EmitSound(SCP_263_CONFIG.SoundApplause, 75, math.random( 100, 110 ))
             ent:SetSkin(2)
             SCP_263.GetAnnouncer(ent, "good_answer")
-            timer.Simple(3, function()
+            timer.Simple(5, function()
                 if not IsValid(ent) or not IsValid(ply) then return end
                 if (not ent:GetIsOn() or ent:GetIsEndingGame()) then return end
         
@@ -145,7 +146,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
         ent:SetSkin(3)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
         SCP_263.GetAnnouncer(ent, "wrong_answer")
-        timer.Simple(3, function()
+        timer.Simple(13, function()
             if (IsValid(ent)) then
                 SCP_263.BurnPlayer(ply)
                 SCP_263.EndGame(ent)
@@ -163,6 +164,7 @@ function SCP_263.EndGame(ent)
     ent:SetIsOn(false)
     ent:SetCurrentPlayer(nil)
     ent:SetIsWaitingAnswer(false)
+    ent:SetIsIntroducingQuestion(false)
 	ent:SetIsEndingGame(false)
     ent:SetActualAnswer("")
     ent:SetCountCorrectAnswer(0)
@@ -171,4 +173,6 @@ function SCP_263.EndGame(ent)
     ent:StopEverySounds()
     hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex())
     timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
+    timer.Remove("SCP263_StartGame_".. ent:EntIndex())
+    timer.Remove("SCP263_NewQuestion_".. ent:EntIndex())
 end

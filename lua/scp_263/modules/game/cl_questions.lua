@@ -45,7 +45,7 @@ function SCP_263.DisplayQuestions(ent)
         surface.DrawRect(SCP_263_CONFIG.ScrW - borderThickness, 0, borderThickness, SCP_263_CONFIG.ScrH)
     end
 
-    if ((not ent:GetIsWaitingAnswer() and not ent:GetIsIntroducingQuestion()) or ActualQuestion == "" or not ActualQuestion) then return end
+    if ((not ent:GetIsWaitingAnswer() and not ent:GetIsIntroducingQuestion()) or ActualQuestion == "" or not ActualQuestion  or ent:GetIsEndingGame()) then return end
 
     --? On affiche la question en grand au milieu de l'écran du joueur.
     if (ent:GetIsIntroducingQuestion()) then

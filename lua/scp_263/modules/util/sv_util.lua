@@ -22,6 +22,7 @@ function SCP_263.BurnPlayer(ply)
     if (not IsValid(ply)) then return end
 
     ply:Ignite( SCP_263_CONFIG.TimeToBurn:GetInt(), 0 )
+    ply.SCP263_IsBurned = true
 end
 
 --[[
@@ -60,6 +61,10 @@ hook.Add( "PlayerInitialSpawn", "PlayerInitialSpawn.SCP263_ClientConVar", functi
     SCP_263.SetConvarClientSide("ClientTimeToBurn", SCP_263_CONFIG.TimeToBurn:GetInt(), ply)
     SCP_263.SetConvarClientSide("ClientTimeToAnswer", SCP_263_CONFIG.TimeToAnswer:GetInt(), ply)
     SCP_263.SetConvarClientSide("ClientMaximumDelimitationGame", SCP_263_CONFIG.MaximumDelimitationGame:GetInt(), ply)
+end)
+
+hook.Add( "PlayerDeath", "PlayerDeath.SCP263_WasBurned", function( victim, inflictor, attacker )
+    if (victim.SCP263_IsBurned) then victim.SCP263_IsBurned = nil end
 end)
 
 -- Set Convar Int for the client side

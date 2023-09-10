@@ -32,7 +32,7 @@ function SCP_263.InitTimer(ent, ply)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
         ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
         SCP_263.GetAnnouncer(ent, "timer_end")
-        timer.Simple(3, function()
+        timer.Simple(9, function()
             if (IsValid(ent)) then
                 SCP_263.BurnPlayer(ply)
                 SCP_263.EndGame(ent)
