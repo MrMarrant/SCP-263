@@ -33,15 +33,9 @@ function ENT:Initialize()
 		local CurrentPlayer = self:GetCurrentPlayer()
 		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
 			if (victim == CurrentPlayer) then
-				self:SetIsEndingGame(true)
+				self:SetCurrentPlayer(nil)
 				self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
-				SCP_263.GetAnnouncer(self, "player_death")
-				self:SetSkin(3)
-				timer.Simple(12, function()
-					if (IsValid(self)) then
-						SCP_263.EndGame(self)
-					end
-				end)
+				SCP_263.EndGame(self, 12, 3, "player_death", false)
 			end
 		end
 	end)
@@ -111,16 +105,7 @@ function ENT:Think()
 	local EntityPos = self:GetPos()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
-		self:SetSkin(3)
-		self:SetIsEndingGame(true)
-		self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
 		self:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
-		SCP_263.GetAnnouncer(self, "run_away")
-		timer.Simple(9, function()
-			if (IsValid(self)) then
-				SCP_263.BurnPlayer(ply)
-				SCP_263.EndGame(self)
-			end
-		end)
+		SCP_263.EndGame(self, 9, 3, "run_away", false)
 	end
 end

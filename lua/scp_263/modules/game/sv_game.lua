@@ -120,16 +120,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
         ent:SetCountCorrectAnswer(CountCorrectAnswer)
         timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
         if (CountCorrectAnswer == 3) then --? On donne la récompense et on termine la partie.
-            ent:SetSkin(7)
-            SCP_263.RewardPlayer(ent)
-            ent:SetIsEndingGame(true)
-            ent:EmitSound(SCP_263_CONFIG.SoundApplauseWin, 75, math.random( 100, 110 ))
-            SCP_263.GetAnnouncer(ent, "winner")
-            timer.Simple(20, function()
-                if (IsValid(ent)) then
-                    SCP_263.EndGame(ent)
-                end
-            end)
+            SCP_263.EndGame(ent, 20, 7, "winner", true)
         else --? On repose une nouvelle question
             ent:EmitSound(SCP_263_CONFIG.SoundApplause, 75, math.random( 100, 110 ))
             ent:SetSkin(2)
@@ -142,16 +133,8 @@ function SCP_263.CheckAnswer(ent, ply, text)
             end)
         end
     else --? On brule le joueur et on termine la partie.
-        ent:SetIsEndingGame(true)
-        ent:SetSkin(3)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
-        SCP_263.GetAnnouncer(ent, "wrong_answer")
-        timer.Simple(13, function()
-            if (IsValid(ent)) then
-                SCP_263.BurnPlayer(ply)
-                SCP_263.EndGame(ent)
-            end
-        end)
+        SCP_263.EndGame(ent, 13, 3, "wrong_answer", false)
     end
 end
 
@@ -159,7 +142,7 @@ end
 * End the current game and manage every var for reset like intial.
 * @Entity ent SCP-263
 --]]
-function SCP_263.EndGame(ent)
+function SCP_263.ResetEnt(ent)
     ent:SetSkin(0)
     ent:SetIsOn(false)
     ent:SetCurrentPlayer(nil)
@@ -175,4 +158,28 @@ function SCP_263.EndGame(ent)
     timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
     timer.Remove("SCP263_StartGame_".. ent:EntIndex())
     timer.Remove("SCP263_NewQuestion_".. ent:EntIndex())
+end
+
+--[[
+* End the current game and manage every var for reset like intial.
+* @Entity ent SCP-263
+--]]
+function SCP_263.EndGame(ent, delay, idSkin, idAnouncer, isReward)
+    ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+    ent:SetIsEndingGame(true)
+    SCP_263.GetAnnouncer(ent, idAnouncer)
+    ent:SetSkin(idSkin)
+    timer.Simple(delay, function()
+        if (not IsValid(ent)) then return end
+
+        local ply = ent:GetCurrentPlayer()
+
+        if (isReward) then
+            ent:EmitSound(SCP_263_CONFIG.SoundApplauseWin, 75, math.random( 100, 110 ))
+            SCP_263.RewardPlayer(ent)
+        elseif (IsValid(ply)) then
+            SCP_263.BurnPlayer(ply)
+        end
+        SCP_263.ResetEnt(ent)
+    end)
 end

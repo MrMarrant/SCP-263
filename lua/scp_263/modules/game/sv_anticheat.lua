@@ -47,17 +47,8 @@ function SCP_263.InitAntiCheat(ply, ent)
                 if (listener == ply and ent:GetIsOn() and ent:GetIsWaitingAnswer()) then
                     local IsCheating = DetectSpeakingToPlayer(talker, listener)
                     if (IsCheating) then
-                        ent:SetIsEndingGame(true)
-                        ent:SetSkin(4)
                         ent:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
-                        ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
-                        SCP_263.GetAnnouncer(ent, "cheating")
-                        timer.Simple(16, function()
-                            if (IsValid(ent)) then
-                                SCP_263.BurnPlayer(ply)
-                                SCP_263.EndGame(ent)
-                            end
-                        end)
+                        SCP_263.EndGame(ent, 16, 4, "cheating", false)
                     end
                 end
             end

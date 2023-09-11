@@ -27,16 +27,7 @@ function SCP_263.InitTimer(ent, ply)
     timer.Create("SCP263_InitTimer_".. ent:EntIndex(), SCP_263_CONFIG.TimeToAnswer:GetInt(), 1, function()
         if not IsValid(ent) or not IsValid(ply) then return end
 
-        ent:SetIsEndingGame(true)
-        ent:SetSkin(3)
         ent:EmitSound(SCP_263_CONFIG.SoundWrongAnswer)
-        ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
-        SCP_263.GetAnnouncer(ent, "timer_end")
-        timer.Simple(9, function()
-            if (IsValid(ent)) then
-                SCP_263.BurnPlayer(ply)
-                SCP_263.EndGame(ent)
-            end
-        end)
+        SCP_263.EndGame(ent, 9, 3, "timer_end", false)
     end)
 end
