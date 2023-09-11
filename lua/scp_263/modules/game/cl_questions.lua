@@ -24,6 +24,10 @@ local Answers = {
 local borderColor = Color(255, 0, 0)
 local borderThickness = 2
 
+--[[
+* Display the question to the candidat & nearby players.
+* @Entity ent SCP-263
+--]]
 function SCP_263.DisplayQuestions(ent)
     local ply = LocalPlayer()
 

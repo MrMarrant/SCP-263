@@ -139,10 +139,10 @@ function SCP_263.CheckAnswer(ent, ply, text)
 end
 
 --[[
-* End the current game and manage every var for reset like intial.
+* Manage every var for reset like intial.
 * @Entity ent SCP-263
 --]]
-function SCP_263.ResetEnt(ent)
+local function ResetEnt(ent)
     ent:SetSkin(0)
     ent:SetIsOn(false)
     ent:SetCurrentPlayer(nil)
@@ -161,14 +161,18 @@ function SCP_263.ResetEnt(ent)
 end
 
 --[[
-* End the current game and manage every var for reset like intial.
+* End the current game and init event depend on value set.
 * @Entity ent SCP-263
+* @number delay The delay before the end of the game
+* @number idSkin The skin to set to the entity
+* @string idAnouncer The id of the announcer to play
+* @boolean isReward If the player has win the game or not
 --]]
 function SCP_263.EndGame(ent, delay, idSkin, idAnouncer, isReward)
     ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
     ent:SetIsEndingGame(true)
-    SCP_263.GetAnnouncer(ent, idAnouncer)
     ent:SetSkin(idSkin)
+    SCP_263.GetAnnouncer(ent, idAnouncer)
     timer.Simple(delay, function()
         if (not IsValid(ent)) then return end
 
@@ -180,6 +184,6 @@ function SCP_263.EndGame(ent, delay, idSkin, idAnouncer, isReward)
         elseif (IsValid(ply)) then
             SCP_263.BurnPlayer(ply)
         end
-        SCP_263.ResetEnt(ent)
+        ResetEnt(ent)
     end)
 end

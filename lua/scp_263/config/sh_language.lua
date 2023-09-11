@@ -40,6 +40,7 @@ end
 -----------GENERATE JSON FILE QUESTION-------------------
 
 --? Default Questions, Edit the JSON file created instead of here.
+--? Erase the JSON file in your data folder to reset the questions by default.
 SCP_263_CONFIG.QuestionList = {}
 local QuestionList = {}
 
@@ -449,10 +450,10 @@ QuestionList["en"] = {
 	},
 }
 
-/*
+--[[
 * Allows to return the data of a file.
 * @string path File path.
-*/
+--]]
 local function GetDataFromFile(path)
     local fileFind = file.Read(path) or ""
     local dataFind = util.JSONToTable(fileFind) or {}
