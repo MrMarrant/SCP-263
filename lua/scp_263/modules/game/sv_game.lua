@@ -120,6 +120,7 @@ function SCP_263.CheckAnswer(ent, ply, text)
         ent:SetCountCorrectAnswer(CountCorrectAnswer)
         timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
         if (CountCorrectAnswer == 3) then --? On donne la récompense et on termine la partie.
+            ent:EmitSound(SCP_263_CONFIG.SoundApplauseWin, 75, math.random( 100, 110 ))
             SCP_263.EndGame(ent, 20, 7, "winner", true)
         else --? On repose une nouvelle question
             ent:EmitSound(SCP_263_CONFIG.SoundApplause, 75, math.random( 100, 110 ))
@@ -179,7 +180,6 @@ function SCP_263.EndGame(ent, delay, idSkin, idAnouncer, isReward)
         local ply = ent:GetCurrentPlayer()
 
         if (isReward) then
-            ent:EmitSound(SCP_263_CONFIG.SoundApplauseWin, 75, math.random( 100, 110 ))
             SCP_263.RewardPlayer(ent)
         elseif (IsValid(ply)) then
             SCP_263.BurnPlayer(ply)
