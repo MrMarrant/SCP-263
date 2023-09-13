@@ -477,5 +477,7 @@ end
 local DataSCP263 = file.Find( "data_scp263/*.json" .. "*", "DATA" ) --? Get every json files
 for key, File in pairs(DataSCP263) do
 	local prefix = string.lower( string.Left( File, 2 ) ) --? Lang Prefix
-	SCP_263_CONFIG.QuestionList[prefix] = GetDataFromFile("data_scp263/" .. File)
+	local data = GetDataFromFile("data_scp263/" .. File)
+	if (#data < 3) then ErrorNoHaltWithStack( "The " .. prefix .. " language question file has less than 3 questions, the entity will not be functional if the language used on the server is the one indicated." ) end
+	SCP_263_CONFIG.QuestionList[prefix] = data
 end

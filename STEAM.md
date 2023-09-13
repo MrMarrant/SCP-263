@@ -1,5 +1,4 @@
-// Mettre un GIF de la Télé qui s'allume
-[img][/img]
+[img]https://i.imgur.com/BIZZc6S.gif[/img]
 
 [url=https://scp-wiki.wikidot.com/scp-263]Page referring to the object[/url]
 
@@ -10,8 +9,7 @@ SCP-263 has been observed to function even when not connected to a power outlet.
 When switched on, the TV always displays the interior of a studio, whose design bears similarities to studios of television game shows from the 1960's.
 A large logo, saying "CASH OR ASH" in large, stylized letters can be seen on the generic of the show.
 
-// Image avec le logo
-[img]https://i.imgur.com/uq1SB8T.jpg[/img]
+[img]https://i.imgur.com/lcIwSGf.png[/img]
 
 The aim of this addon was to create a new "entity" for role-playing "revision" of knowledge about the SCP universe.
 
@@ -24,7 +22,7 @@ The main entity is the television, it has :
 [*]  Multiple way to interact with it 
 [*]  'AntiCheat'
 [*]  Three different rewards
-[*]  25 defaults questions & 4 response for each question
+[*]  25 defaults questions & 4 answers for each question
 [*]  Configuration for add new questions or for configure values of the addon
 [/list]
 
@@ -33,23 +31,17 @@ The main entity is the television, it has :
 When a player uses the 'Action' button on the entity, it lights up and the player is considered the candidate for the new show.
 The presenter will announce the start of the game and ask the contestant a total of 3 questions, each of which is timed.
 
-// Image avec le lancement du jeu
-[img]https://i.imgur.com/jgaMt84.gif[/img]
-
-
 The questions are displayed on the candidate's screen, as well as to all players near the entity.
 The contestant can answer them by writing the correct letter corresponding to one of the answers in the chat box.
 
-// Image avec l'affichage des questions
-[img]https://i.imgur.com/jgaMt84.gif[/img]
+[img]https://i.imgur.com/yxD2PpI.gif[/img]
 
 If he answers correctly, he can continue answering the following questions 😎
 If he answers incorrectly, he will be burned alive 🥵
 
 By answering 3 questions correctly, the contestant will be rewarded with one of the 3 figurines available, and then the TV will switch itself off.
 
-// Image d'une partie gagné
-[img]https://i.imgur.com/jgaMt84.gif[/img]
+[img]https://i.imgur.com/qD2tiqT.gif[/img]
 
 Of course, there are a few rules that the contestant must respect during the game, including :
 
@@ -62,8 +54,7 @@ Of course, there are a few rules that the contestant must respect during the gam
 
 Failure to comply with any of the above rules will result in spontaneous combustion of the candidate (unless he's already dead, of course 💀).
 
-// Image d'une partie perdu
-[img]https://i.imgur.com/jgaMt84.gif[/img]
+[img]https://i.imgur.com/QFnLLy2.gif[/img]
 
 [h3]REWARDS[/h3]
 
@@ -71,8 +62,7 @@ There are 3 awards as explained above, each is a small figurine,
 Two correspond to an SCP (SCP-682 and SCP-173)
 The last is just a little personal pleasure, interpret it as you want 🙂
 
-// Image des 3 figurines
-[img]https://i.imgur.com/jgaMt84.gif[/img]
+[img]https://i.imgur.com/kjbOcCf.jpg[/img]
 
 [h2]Convars[/h2]
 
@@ -110,10 +100,65 @@ There are a number of Convars that allow you to configure the addon on several e
 [/tr]
 [/table]
 
-All these values can only be modified from your server console or you can edit them in the props menu if you are Super Admin (Utilities/SCP-263/Settings)
+I strongly recommend that you use the props menu (Utilities/SCP-263/Settings) instead of changing the convar from the server console.
+
+[h2]Add New Questions[/h2]
+
+If you want to add or remove questions , make sure you've at least launched your server once with the addon active.
+
+Then go to your Garry's Mod folder in your Steam library, here's the path : 
+[quote]YourDirectoryRoot\Steam\steamapps\common\GarrysMod\garrysmod\data\data_scp263[/quote]
+
+Normally, there should be at least two files by default: 
+[quote]
+en_questions.json
+fr_questions.json
+[/quote]
+
+Open the one corresponding to your language or create a new one by replacing the prefix of the file name by the one of your language. Be careful, prefixes can have a particular syntax depending on the language, check [url=https://wiki.facepunch.com/gmod/Addon_Localization]here[/url] the prefix.
+
+Here's an example of the expected format, which you can use as inspiration, just replace the text:
+[quote]
+[
+    {
+		question = "If a staff revolt breaks out, which Fim should intervene ?",
+		correct_answer = "c",
+		response_a = "The Alpha-1",
+		response_b = "The Omega-1",
+		response_c = "The Thau-5",
+		response_d = "The Omicron Rhô",
+	},
+	{
+		question = "Who is Bobble the Clown?",
+		correct_answer = "a",
+		response_a = "A clown visible only to children",
+		response_b = "SCP-2094",
+		response_c = "A breeding circus clown",
+		response_d = "SCP-2912-3",
+	},
+    {
+		question = "What is the Foundation's standard procedure for containing SCP ?",
+		correct_answer = "a",
+		response_a = "Contain them in a containment cell in accordance with their dangerousness and specific needs",
+		response_b = "Contain them and attempt to destroy them",
+		response_c = "Study and understand them before confining them",
+		response_d = "Make them appear in the light",
+	},
+]
+[/quote]
+A minimum of 3 questions is required, otherwise the addon will generate an LUA error,
+Otherwise, to describe each parameter :
+[list]
+[*] question' : Name of the question
+[*] 'correct_answer' : Wich answer is the one correct
+[*] response_' : All the possible answer displays
+[/list]
+Don't forget the quote and comma or you will have a lot of errors 💀
+
+If you ever want to reset the default questions for included languages, simply delete the json file and restart your server.
 
 [h2]Languages[/h2]
-TWO languages are currently supported:
+Two languages are currently supported:
 [list]
 [*]  French
 [*]  English
@@ -141,7 +186,11 @@ All, normally, let me know if this is not the case, but I haven't used any speci
 
 [h3]Why ?[/h3]
 
-Why not 🤡
+Cauz it's fun 🤡
+
+[h3]What's your next addon ?[/h3]
+
+Right now, I think I'm going to slow down the entities as i've been doing since the beginning and i'm going to work on projects that require more time and work.
 
 [h3]Can i ask you to work for my server SCP ?[/h3]
 
@@ -150,7 +199,12 @@ Why not 🤡
 
 [h2]Credits[/h2]
 [list]
-[*] All the contents can be found [url=]here[/url].
+[*] All the contents can be found [url=https://pastebin.com/xiAM1YUA]here[/url].
+[*] Huge thanks to [url=https://www.twitch.tv/gannaluffy]GannaLuffy[/url] for the voice announcer, you can ask him on discord for commissions if you like it.
+[*] Thanks to VTail64 for the map used for screenshoots and GIF's, you can found it [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1345722248]here[/url].
+[*] Thanks to [url=https://steamcommunity.com/profiles/76561199480278703]Orion[/url] for helping me to draft somes of the questions.
+[*] Thanks to [url=https://steamcommunity.com/id/lunuki]Lunuki[/url] for creating the Logo of the fictional show 'Cash Or Ash'.
+[*] Thanks to Fred Allen for the use of his image on some of the shows he produced, he was an excellent presenter.
 [/list]
 
 
