@@ -28,8 +28,8 @@ The main entity is the television, it has :
 
 [/h2]Functionality[/h2]
 
-When a player uses the 'Action' button on the entity, it lights up and the player is considered the candidate for the new show.
-The presenter will announce the start of the game and ask the contestant a total of 3 questions, each of which is timed.
+When a player uses the 'Action' button on the entity, it lights up and the player is considered to be the candidate for the new show.
+The announcer will announce the start of the game and ask the contestant a total of 3 questions, each of which is timed.
 
 The questions are displayed on the candidate's screen, as well as to all players near the entity.
 The contestant can answer them by writing the correct letter corresponding to one of the answers in the chat box.
@@ -50,6 +50,7 @@ Of course, there are a few rules that the contestant must respect during the gam
 [*]  Don't cheat 😡
 [*]  Don't die
 [*]  Answer within the time limit
+[*]  Don't say 'uwu' or 'feur'
 [/list]
 
 Failure to comply with any of the above rules will result in spontaneous combustion of the candidate (unless he's already dead, of course 💀).
@@ -100,7 +101,7 @@ There are a number of Convars that allow you to configure the addon on several e
 [/tr]
 [/table]
 
-I strongly recommend that you use the props menu (Utilities/SCP-263/Settings) instead of changing the convar from the server console.
+I strongly recommend that you use the props menu (Utilities/SCP-263/Settings) instead of changing the convar from the server console, only Admin/Super Admin can modify this values.
 
 [h2]Add New Questions[/h2]
 
@@ -200,7 +201,7 @@ Right now, I think I'm going to slow down the entities as i've been doing since 
 [h2]Credits[/h2]
 [list]
 [*] All the contents can be found [url=https://pastebin.com/xiAM1YUA]here[/url].
-[*] Huge thanks to [url=https://www.twitch.tv/gannaluffy]GannaLuffy[/url] for the voice announcer, you can ask him on discord for commissions if you like it.
+[*] Huge thanks to [url=https://twitter.com/Ganna_Luffy]GannaLuffy[/url] for the voice announcer, you can ask him on discord for commissions if you like it.
 [*] Thanks to VTail64 for the map used for screenshoots and GIF's, you can found it [url=https://steamcommunity.com/sharedfiles/filedetails/?id=1345722248]here[/url].
 [*] Thanks to [url=https://steamcommunity.com/profiles/76561199480278703]Orion[/url] for helping me to draft somes of the questions.
 [*] Thanks to [url=https://steamcommunity.com/id/lunuki]Lunuki[/url] for creating the Logo of the fictional show 'Cash Or Ash'.
@@ -216,4 +217,4 @@ If you want to support my work, click [url= https://wlo.link/@MrMarrant]here[/ur
 
 [i]I hope you laughed. Thank you for killing with us.[/i]
 [img]https://i.imgur.com/nTRVJZ1.gif[/img]
-[spoiler]tags: tv, television, gameshow, lore, scp-263, scp263, scp 263, SCP263, SCP 263, scp, ericandre, game show[/spoiler]
+[spoiler]tags: tv, tele, television, gameshow, lore, scp-263, scp263, scp 263, SCP263, SCP 263, scp, ericandre, game show, winner, looser, scprp, scp rp, scp roleplay, scp roleplay, show[/spoiler]

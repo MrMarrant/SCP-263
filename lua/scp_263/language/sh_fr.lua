@@ -15,7 +15,6 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local LANG_FR = {
-    Welcome = "Welcome",
     Answer_a = "A",
     Answer_b = "B",
     Answer_c = "C",
