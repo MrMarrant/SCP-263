@@ -47,6 +47,7 @@ function ENT:InitVar( )
 	self:SetIsWaitingAnswer(false)
 	self:SetIsEndingGame(false)
 	self:SetIsIntroducingQuestion(false)
+	self:SetIsPostEndGame(false)
 	self:SetActualAnswer("")
 	self:SetCountCorrectAnswer(0)
 	local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
@@ -89,7 +90,7 @@ end
 
 -- Switch on the tv if it's off
 function ENT:Use(ply)
-	if (not IsValid(ply) or self:GetIsOn()) then return end
+	if (not IsValid(ply) or self:GetIsOn() or self:GetIsPostEndGame()) then return end
 	if (ply.SCP263_IsBurned) then return end
 
 	self:SetSkin(1)
@@ -106,6 +107,6 @@ function ENT:Think()
 
 	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
 		self:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
-		SCP_263.EndGame(self, 9, 3, "run_away", false)
+		SCP_263.EndGame(self, 11, 3, "run_away", false)
 	end
 end

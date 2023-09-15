@@ -159,6 +159,13 @@ local function ResetEnt(ent)
     timer.Remove("SCP263_InitTimer_".. ent:EntIndex()) --? On arrête le timer crée
     timer.Remove("SCP263_StartGame_".. ent:EntIndex())
     timer.Remove("SCP263_NewQuestion_".. ent:EntIndex())
+    ent:SetIsPostEndGame(true)
+
+    timer.Simple(5, function()
+        if not IsValid(ent) then return end
+
+        ent:SetIsPostEndGame(false)
+    end)
 end
 
 --[[
