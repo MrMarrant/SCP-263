@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "scp_263/base"
+	$bumpmap  "scp_263/normal"
+}

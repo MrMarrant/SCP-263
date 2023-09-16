@@ -26,6 +26,11 @@ SCP_263_CONFIG.RootFolder = "scp_263/"
 -- Actual lang server
 SCP_263_CONFIG.LangServer = GetConVar("gmod_language"):GetString()
 
+SCP_263_CONFIG.SoundLangHandled = {
+	en = true,
+	fr = true,
+}
+
 /*
 * Load the file set in the parameters.
 * @string File The name of the file to load.
@@ -72,6 +77,6 @@ end
 
 print("SCP-263 Loading . . .")
     LoadDirectory(SCP_263_CONFIG.RootFolder .. "config/")
-    LoadDirectory(SCP_263_CONFIG.RootFolder .. "language/")
+	LoadDirectory(SCP_263_CONFIG.RootFolder .. "language/")
     LoadDirectory(SCP_263_CONFIG.RootFolder .. "modules/")
 print("SCP-263 Loaded!")

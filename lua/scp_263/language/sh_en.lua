@@ -15,7 +15,18 @@
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 local LANG_EN = {
-    welcome = "Welcome",
+    Answer_a = "A",
+    Answer_b = "B",
+    Answer_c = "C",
+    Answer_d = "D",
+
+    tuto_answer = "Answer the questions by writing the correct letter in the chat box",
+
+    Warning_setting = "Only Super Admins can modify these values, other roles will have no effect on them.",
+    Time_to_burn = "The total time the player is burned",
+    Time_to_answer = "The total time the player has for answer the questions",
+    Maximum_delimitation_game = "The maximum distance delimitation of the game",
+    Enable_anticheat = "Enable the anti cheat system of the game",
 }
 
 SCP_263.AddLanguage("en", LANG_EN)

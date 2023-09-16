@@ -14,8 +14,35 @@
 -- You should have received a copy of the GNU General Public License
 -- along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
--- Every langs handled by the mod
-SCP_263_CONFIG.HandledLanguage = {
-    "fr",
-    "en",
+SCP_263_CONFIG.NameFileQuestion = "_questions.json"
+
+-- Every models that can be rewarded
+SCP_263_CONFIG.ModelsReward = {
+    "models/scp_263/scp_173.mdl",
+    "models/scp_263/scp_682.mdl",
+    "models/scp_263/he_smile.mdl",
 }
+
+SCP_263_CONFIG.SoundWrongAnswer = Sound( "scp_263/sound_effect/bad_answer.mp3" )
+
+SCP_263_CONFIG.SoundRightAnswer = Sound( "scp_263/sound_effect/good_answer.mp3" )
+
+SCP_263_CONFIG.SoundGenericIntro = Sound( "scp_263/sound_effect/generic.mp3" )
+
+SCP_263_CONFIG.SoundApplauseGeneric = Sound( "scp_263/sound_effect/applause_generic.mp3" )
+
+SCP_263_CONFIG.SoundApplauseWin = Sound( "scp_263/sound_effect/applause_win.mp3" )
+
+SCP_263_CONFIG.SoundApplause = Sound( "scp_263/sound_effect/applause.mp3" )
+
+SCP_263_CONFIG.SoundTimerDecay = Sound( "scp_263/sound_effect/timer_decay.wav" )
+
+SCP_263_CONFIG.SoundBoo = Sound( "scp_263/sound_effect/boo.mp3" )
+
+-- NET VAR
+SCP_263_CONFIG.SetQuestions = "SCP_263_CONFIG.SetQuestions"
+SCP_263_CONFIG.SetConvarClientSide = "SCP_263_CONFIG.SetConvarClientSide"
+SCP_263_CONFIG.StartTimer = "SCP_263_CONFIG.StartTimer"
+SCP_263_CONFIG.StopTimer = "SCP_263_CONFIG.StopTimer"
+SCP_263_CONFIG.SetConvarInt = "SCP_263_CONFIG.SetConvarInt"
+SCP_263_CONFIG.SetConvarBool = "SCP_263_CONFIG.SetConvarBool"

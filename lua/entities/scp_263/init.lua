@@ -19,10 +19,42 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
-	self:SetModel( "" ) -- TODO : Mettre le modèle
+	self:SetModel( "models/scp_263/scp_263.mdl" )
+	self:InitVar()
+	self:SetSkin(0)
 	self:RebuildPhysics()
+	hook.Add("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex(), function(ply, text)
+		if (ply != self:GetCurrentPlayer()) then return end
+
+        SCP_263.CheckAnswer(self, ply, text)
+    end)
+	-- ? if the player died during a game, we end the game.
+	hook.Add( "PlayerDeath", "PlayerDeath.SCP263_IsPlayerDead_".. self:EntIndex(), function( victim, inflictor, attacker )
+		local CurrentPlayer = self:GetCurrentPlayer()
+		if (IsValid(CurrentPlayer) and self:GetIsOn()) then
+			if (victim == CurrentPlayer) then
+				self:SetCurrentPlayer(nil)
+				self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+				SCP_263.EndGame(self, 12, 3, "player_death", false)
+			end
+		end
+	end)
 end
 
+-- Intialise every var related to the entity
+function ENT:InitVar( )
+	self:SetIsOn(false)
+	self:SetIsWaitingAnswer(false)
+	self:SetIsEndingGame(false)
+	self:SetIsIntroducingQuestion(false)
+	self:SetIsPostEndGame(false)
+	self:SetActualAnswer("")
+	self:SetCountCorrectAnswer(0)
+	local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
+	self.QuestionsList = table.Copy( QuestionListCopy)
+end
+
+-- Intialise the physic of the entity
 function ENT:RebuildPhysics( )
 	self:PhysicsInit( SOLID_VPHYSICS ) 
 	self:SetMoveType(MOVETYPE_VPHYSICS)
@@ -31,6 +63,21 @@ function ENT:RebuildPhysics( )
 	self:PhysWake()
 end
 
+function ENT:OnRemove( )
+	self:StopEverySounds()
+	hook.Remove("PlayerSay", "PlayerSay.SCP263_CheckAnswer_".. self:EntIndex())
+	hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. self:EntIndex())
+	hook.Remove( "PlayerDeath", "PlayerDeath.SCP263_IsPlayerDead_".. self:EntIndex())
+end
+
+function ENT:StopEverySounds( )
+	self:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+	self:StopSound(SCP_263_CONFIG.SoundGenericIntro)
+	self:StopSound(SCP_263_CONFIG.SoundApplause)
+	self:StopSound(SCP_263_CONFIG.SoundBoo)
+end
+
+-- Use specially for the physics sounds
 function ENT:PhysicsCollide( data, physobj ) -- TODO : Changer les sons de collisions.
 	if data.DeltaTime > 0.2 then
 		if data.Speed > 250 then
@@ -41,9 +88,25 @@ function ENT:PhysicsCollide( data, physobj ) -- TODO : Changer les sons de colli
 	end
 end
 
+-- Switch on the tv if it's off
 function ENT:Use(ply)
-	if (!IsValid(ply)) then return end
+	if (not IsValid(ply) or self:GetIsOn() or self:GetIsPostEndGame()) then return end
+	if (ply.SCP263_IsBurned) then return end
 
-    -- TODO : Changer le skin, et lancer la partie.
-    self:EmitSound( "physics/concrete/concrete_impact_soft".. math.random(1, 3)..".wav", 75, math.random( 100, 110 ) )	
+	self:SetSkin(1)
+	SCP_263.StartGame(ply, self)
+end
+
+-- Detect if a player is too far from the tv
+function ENT:Think()
+	local ply = self:GetCurrentPlayer()
+	if (not self:GetIsOn() or self:GetIsEndingGame() or not IsValid(ply)) then return end
+	
+	local PlayerPos = ply:GetPos()
+	local EntityPos = self:GetPos()
+
+	if (PlayerPos:Distance(EntityPos) > SCP_263_CONFIG.MaximumDelimitationGame:GetInt()) then
+		self:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))
+		SCP_263.EndGame(self, 11, 3, "run_away", false)
+	end
 end

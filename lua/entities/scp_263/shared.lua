@@ -21,3 +21,15 @@ ENT.Author = "MrMarrant"
 ENT.PrintName = "SCP-263"
 ENT.Spawnable = true
 ENT.Category = "SCP"
+
+-- Set up every var related to the entity we will use
+function ENT:SetupDataTables()
+    self:NetworkVar("Bool", 0, "IsOn")
+    self:NetworkVar("Bool", 1, "IsWaitingAnswer")
+    self:NetworkVar("Bool", 2, "IsEndingGame")
+    self:NetworkVar("Bool", 3, "IsIntroducingQuestion")
+    self:NetworkVar("Bool", 4, "IsPostEndGame")
+    self:NetworkVar("Entity", 0, "CurrentPlayer")
+    self:NetworkVar("String", 0, "ActualAnswer")
+    self:NetworkVar("Int", 0, "CountCorrectAnswer")
+end
