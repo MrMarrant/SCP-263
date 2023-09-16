@@ -57,7 +57,7 @@ function SCP_263.WrapText(text, maxWidth, explode)
 end
 
 --[[
-* Set a convar from client to server side
+* Set a convar uint from client to server side
 * @string name The convar Key
 * @number value The value to set to the convar
 * @Player ply The player who set the convar
@@ -67,6 +67,21 @@ function SCP_263.SetConvarInt(name, value, ply)
         net.Start(SCP_263_CONFIG.SetConvarInt)
             net.WriteString(name)
             net.WriteUInt(value, 14)
+        net.SendToServer()
+    end
+end
+
+--[[
+* Set a convar bool from client to server side
+* @string name The convar Key
+* @number value The value to set to the convar
+* @Player ply The player who set the convar
+--]]
+function SCP_263.SetConvarBool(name, value, ply)
+    if (ply:IsSuperAdmin() or game.SinglePlayer()) then --? Just for avoid to spam net message, we check server side to.
+        net.Start(SCP_263_CONFIG.SetConvarBool)
+            net.WriteString(name)
+            net.WriteBool(value)
         net.SendToServer()
     end
 end

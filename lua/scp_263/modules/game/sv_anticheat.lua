@@ -43,8 +43,9 @@ end
 function SCP_263.InitAntiCheat(ply, ent)
     hook.Add( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex(), function( listener, talker )
         if (IsValid(ent) and IsValid(ply)) then
-            if (talker:IsSpeaking()) then
-                if (listener == ply and ent:GetIsOn() and ent:GetIsWaitingAnswer()) then
+            if (ent:GetIsOn() and ent:GetIsWaitingAnswer() and not ent:GetIsEndingGame()) then
+                --? We check if a player is speaking to the player who is playing the game and the distance is < 150
+                if (talker:IsSpeaking() and listener == ply and listener:GetPos():Distance(talker:GetPos()) <= 120) then
                     local IsCheating = DetectSpeakingToPlayer(talker, listener)
                     if (IsCheating) then
                         ent:EmitSound(SCP_263_CONFIG.SoundBoo, 75, math.random( 100, 110 ))

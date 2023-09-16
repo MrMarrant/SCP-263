@@ -21,6 +21,7 @@ SCP_263_CONFIG.ScrH = ScrH()
 SCP_263_CONFIG.ClientTimeToBurn = 42
 SCP_263_CONFIG.ClientTimeToAnswer = 45
 SCP_263_CONFIG.ClientMaximumDelimitationGame = 500
+SCP_263_CONFIG.ClientEnableAntiCheat = 1
 
 surface.CreateFont( "SCP263_TitleQuestion", {
     font = "Arial",

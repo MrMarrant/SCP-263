@@ -30,7 +30,9 @@ function SCP_263.StartGame(ply, ent)
     ent:SetIsOn(true)
     ent:SetCurrentPlayer(ply)
     ply:ChatPrint( SCP_263.GetTranslation("tuto_answer") )
-    SCP_263.InitAntiCheat(ply, ent)
+    if (SCP_263_CONFIG.EnableAntiCheat:GetBool()) then
+        SCP_263.InitAntiCheat(ply, ent)
+    end
     ent:EmitSound(SCP_263_CONFIG.SoundGenericIntro, 75, math.random( 100, 110 ))
     ent:EmitSound(SCP_263_CONFIG.SoundApplauseGeneric, 75, math.random( 100, 110 ))
     SCP_263.GetAnnouncer(ent, "generic")
@@ -178,6 +180,7 @@ end
 --]]
 function SCP_263.EndGame(ent, delay, idSkin, idAnouncer, isReward)
     ent:StopSound(SCP_263_CONFIG.SoundTimerDecay)
+    ent:SetIsWaitingAnswer(false)
     ent:SetIsEndingGame(true)
     ent:SetSkin(idSkin)
     SCP_263.GetAnnouncer(ent, idAnouncer)

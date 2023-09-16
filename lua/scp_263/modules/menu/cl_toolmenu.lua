@@ -18,6 +18,18 @@ hook.Add("PopulateToolMenu", "PopulateToolMenu.SCP263_MenuConfig", function()
     spawnmenu.AddToolMenuOption("Utilities", "SCP-263", "SCP263_MenuConfig", "Settings", "", "", function(panel)
         local ply = LocalPlayer()
 
+        local SCP263_EnableAntiCheat = vgui.Create("DCheckBoxLabel")
+        SCP263_EnableAntiCheat:SetPos( 5, 5 )
+        SCP263_EnableAntiCheat:SetText("")
+        SCP263_EnableAntiCheat:SizeToContents()
+        SCP263_EnableAntiCheat:SetValue( SCP_263_CONFIG.ClientEnableAntiCheat )
+        SCP263_EnableAntiCheat.OnChange = function(CheckBox, val)
+            SCP_263.SetConvarBool("EnableAntiCheat", val, ply)
+        end
+        SCP263_EnableAntiCheat.Paint = function(CheckBox, w, h)
+            draw.DrawText( SCP_263.GetTranslation("Enable_anticheat"), "DermaDefaultBold", w*0.05, h * 0.2, Color(0, 153, 255), TEXT_ALIGN_LEFT )
+        end
+
         local SCP263_TimeToBurn = vgui.Create("DNumSlider")
         SCP263_TimeToBurn:SetPos( 5, 5 )
         SCP263_TimeToBurn:SetSize( 100, 20 )
@@ -50,6 +62,7 @@ hook.Add("PopulateToolMenu", "PopulateToolMenu.SCP263_MenuConfig", function()
 
         panel:Clear()
         panel:ControlHelp(SCP_263.GetTranslation("Warning_setting"))
+        panel:AddItem(SCP263_EnableAntiCheat)
         panel:Help( SCP_263.GetTranslation("Time_to_burn") )
         panel:AddItem(SCP263_TimeToBurn)
         panel:Help( SCP_263.GetTranslation("Time_to_answer") )

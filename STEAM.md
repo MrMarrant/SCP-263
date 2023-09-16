@@ -99,6 +99,13 @@ There are a number of Convars that allow you to configure the addon on several e
 [td]10[/td]
 [td]9999[/td]
 [/tr]
+[tr]
+[td]SCP263_EnableAntiCheat[/td]
+[td]Enable the anti cheat system of the game[/td]
+[td]1[/td]
+[td]0[/td]
+[td]1[/td]
+[/tr]
 [/table]
 
 I strongly recommend that you use the props menu (Utilities/SCP-263/Settings) instead of changing the convar from the server console, only Admin/Super Admin can modify this values.

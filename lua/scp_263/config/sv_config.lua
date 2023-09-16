@@ -19,6 +19,7 @@ util.AddNetworkString(SCP_263_CONFIG.SetConvarClientSide)
 util.AddNetworkString(SCP_263_CONFIG.StartTimer)
 util.AddNetworkString(SCP_263_CONFIG.StopTimer)
 util.AddNetworkString(SCP_263_CONFIG.SetConvarInt)
+util.AddNetworkString(SCP_263_CONFIG.SetConvarBool)
 
 -- The total time the player is burned
 SCP_263_CONFIG.TimeToBurn = CreateConVar( "SCP263_TimeToBurn", 42, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "The total time the player is burned", 1, 999 )
@@ -28,3 +29,6 @@ SCP_263_CONFIG.TimeToAnswer = CreateConVar( "SCP263_TimeToAnswer", 45, {FCVAR_PR
 
 -- The maximum distance delimitation of the game
 SCP_263_CONFIG.MaximumDelimitationGame = CreateConVar( "SCP263_MaximumDelimitationGame", 500, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "The maximum distance delimitation of the game", 10, 9999 )
+
+-- Enable the anti cheat system of the game
+SCP_263_CONFIG.EnableAntiCheat = CreateConVar( "SCP263_EnableAntiCheat", 1, {FCVAR_PROTECTED, FCVAR_ARCHIVE}, "Enable the anti cheat system of the game", 0, 1 )

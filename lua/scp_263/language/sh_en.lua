@@ -26,6 +26,7 @@ local LANG_EN = {
     Time_to_burn = "The total time the player is burned",
     Time_to_answer = "The total time the player has for answer the questions",
     Maximum_delimitation_game = "The maximum distance delimitation of the game",
+    Enable_anticheat = "Enable the anti cheat system of the game",
 }
 
 SCP_263.AddLanguage("en", LANG_EN)

@@ -77,3 +77,14 @@ net.Receive(SCP_263_CONFIG.SetConvarInt, function ( len, ply )
         SCP_263.SetConvarClientSide('Client'..name, value) --? The value clientside start with Client
     end
 end)
+
+-- Set Convar Bool for the client side
+net.Receive(SCP_263_CONFIG.SetConvarBool, function ( len, ply )
+    if (ply:IsSuperAdmin() or game.SinglePlayer()) then
+        local name = net.ReadString()
+        local value = net.ReadBool()
+        SCP_263_CONFIG[name]:SetBool(value)
+
+        SCP_263.SetConvarClientSide('Client'..name, value) --? The value clientside start with Client
+    end
+end)
