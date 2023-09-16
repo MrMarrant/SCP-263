@@ -112,56 +112,7 @@ I strongly recommend that you use the props menu (Utilities/SCP-263/Settings) in
 
 [h2]Add New Questions[/h2]
 
-If you want to add or remove questions , make sure you've at least launched your server once with the addon active.
-
-Then go to your Garry's Mod folder in your Steam library, here's the path : 
-[quote]YourDirectoryRoot\Steam\steamapps\common\GarrysMod\garrysmod\data\data_scp263[/quote]
-
-Normally, there should be at least two files by default: 
-[quote]
-en_questions.json
-fr_questions.json
-[/quote]
-
-Open the one corresponding to your language or create a new one by replacing the prefix of the file name by the one of your language. Be careful, prefixes can have a particular syntax depending on the language, check [url=https://wiki.facepunch.com/gmod/Addon_Localization]here[/url] the prefix.
-
-Here's an example of the expected format, which you can use as inspiration, just replace the text:
-[quote]
-[
-    {
-		question = "If a staff revolt breaks out, which Fim should intervene ?",
-		correct_answer = "c",
-		response_a = "The Alpha-1",
-		response_b = "The Omega-1",
-		response_c = "The Thau-5",
-		response_d = "The Omicron Rhô",
-	},
-	{
-		question = "Who is Bobble the Clown?",
-		correct_answer = "a",
-		response_a = "A clown visible only to children",
-		response_b = "SCP-2094",
-		response_c = "A breeding circus clown",
-		response_d = "SCP-2912-3",
-	},
-    {
-		question = "What is the Foundation's standard procedure for containing SCP ?",
-		correct_answer = "a",
-		response_a = "Contain them in a containment cell in accordance with their dangerousness and specific needs",
-		response_b = "Contain them and attempt to destroy them",
-		response_c = "Study and understand them before confining them",
-		response_d = "Make them appear in the light",
-	},
-]
-[/quote]
-A minimum of 3 questions is required, otherwise the addon will generate an LUA error,
-Otherwise, to describe each parameter :
-[list]
-[*] question' : Name of the question
-[*] 'correct_answer' : Wich answer is the one correct
-[*] response_' : All the possible answer displays
-[/list]
-Don't forget the quote and comma or you will have a lot of errors 💀
+[*] Every explanations are [url=https://github.com/MrMarrant/SCP-263/wiki/Add-New-Questions]here[/url] if you want ever want to config the question displays.
 
 If you ever want to reset the default questions for included languages, simply delete the json file and restart your server.
 
