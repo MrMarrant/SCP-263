@@ -76,7 +76,7 @@ local function LoadDirectory( directory )
 end
 
 print("SCP-263 Loading . . .")
-    LoadDirectory(SCP_263_CONFIG.RootFolder .. "config/")
-	LoadDirectory(SCP_263_CONFIG.RootFolder .. "language/")
-    LoadDirectory(SCP_263_CONFIG.RootFolder .. "modules/")
+    LoadDirectory(SCP_263_CONFIG.RootFolder .. "config")
+	LoadDirectory(SCP_263_CONFIG.RootFolder .. "language")
+    LoadDirectory(SCP_263_CONFIG.RootFolder .. "modules")
 print("SCP-263 Loaded!")

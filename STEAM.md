@@ -26,7 +26,7 @@ The main entity is the television, it has :
 [*]  Configuration for add new questions or for configure values of the addon
 [/list]
 
-[/h2]Functionality[/h2]
+[h2]Functionality[/h2]
 
 When a player uses the 'Action' button on the entity, it lights up and the player is considered to be the candidate for the new show.
 The announcer will announce the start of the game and ask the contestant a total of 3 questions, each of which is timed.
@@ -112,7 +112,7 @@ I strongly recommend that you use the props menu (Utilities/SCP-263/Settings) in
 
 [h2]Add New Questions[/h2]
 
-[*] Every explanations are [url=https://github.com/MrMarrant/SCP-263/wiki/Add-New-Questions]here[/url] if you want ever want to config the question displays.
+Every explanations are [url=https://github.com/MrMarrant/SCP-263/wiki/Add-New-Questions]here[/url] if you want ever want to config the question displays.
 
 If you ever want to reset the default questions for included languages, simply delete the json file and restart your server.
 
