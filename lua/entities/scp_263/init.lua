@@ -42,7 +42,7 @@ function ENT:Initialize()
 end
 
 -- Intialise every var related to the entity
-function ENT:InitVar( )
+function ENT:InitVar()
 	self:SetIsOn(false)
 	self:SetIsWaitingAnswer(false)
 	self:SetIsEndingGame(false)
@@ -51,7 +51,7 @@ function ENT:InitVar( )
 	self:SetActualAnswer("")
 	self:SetCountCorrectAnswer(0)
 	local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
-	self.QuestionsList = table.Copy( QuestionListCopy)
+	self.QuestionsList = table.Copy(QuestionListCopy)
 end
 
 -- Intialise the physic of the entity

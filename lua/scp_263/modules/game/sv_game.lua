@@ -52,6 +52,7 @@ end
 * @Entity ent SCP-263
 --]]
 function SCP_263.NewQuestion(ply, ent)
+    if (not ent.QuestionsList) then error( "Error: Question is not set on the entitie, please check if the JSON file is valid." ) return end
     ent:SetSkin(6)
     local KeySelected = math.random(1, #ent.QuestionsList)
     local SelectedQuestion = ent.QuestionsList[KeySelected]
