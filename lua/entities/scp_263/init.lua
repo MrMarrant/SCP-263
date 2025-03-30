@@ -50,7 +50,7 @@ function ENT:InitVar()
 	self:SetIsPostEndGame(false)
 	self:SetActualAnswer("")
 	self:SetCountCorrectAnswer(0)
-	local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
+	local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"] or SCP_263_CONFIG.DefaultQuestionList["en"]
 	self.QuestionsList = table.Copy(QuestionListCopy)
 end
 

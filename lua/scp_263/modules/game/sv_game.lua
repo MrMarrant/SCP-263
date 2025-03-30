@@ -155,7 +155,7 @@ local function ResetEnt(ent)
 	ent:SetIsEndingGame(false)
     ent:SetActualAnswer("")
     ent:SetCountCorrectAnswer(0)
-    local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"]
+    local QuestionListCopy = SCP_263_CONFIG.QuestionList[SCP_263_CONFIG.LangServer] or SCP_263_CONFIG.QuestionList["en"] or SCP_263_CONFIG.DefaultQuestionList["en"]
 	ent.QuestionsList = table.Copy( QuestionListCopy) -- Reset questions list
     ent:StopEverySounds()
     hook.Remove( "PlayerCanHearPlayersVoice", "PlayerCanHearPlayersVoice.SCP263_AntiCheat_".. ent:EntIndex())

@@ -42,9 +42,9 @@ end
 --? Default Questions, Edit the JSON file created instead of here.
 --? Erase the JSON file in your data folder to reset the questions by default.
 SCP_263_CONFIG.QuestionList = {}
-local QuestionList = {}
+SCP_263_CONFIG.DefaultQuestionList = {}
 
-QuestionList["fr"] = {
+SCP_263_CONFIG.DefaultQuestionList["fr"] = {
 	{
 		question = "Dans quel Site est contenu SCP-682 ?",
 		correct_answer = "d",
@@ -247,7 +247,7 @@ QuestionList["fr"] = {
 	},
 }
 
-QuestionList["en"] = {
+SCP_263_CONFIG.DefaultQuestionList["en"] = {
 	{
 		question = "In which Site is SCP-682 contained?",
 		correct_answer = "d",
@@ -450,7 +450,7 @@ QuestionList["en"] = {
 	},
 }
 
-QuestionList["zh-CN"] = {
+SCP_263_CONFIG.DefaultQuestionList["zh-CN"] = {
 	{
 		question = "SCP-682 位于哪个站点?",
 		correct_answer = "d",
@@ -669,18 +669,18 @@ if not file.Exists("data_scp263", "DATA") then
 end
 
 --? We create the file if it don't exist with the default params, and we load the file when everythig is set up.
-for key, value in pairs(QuestionList) do
-    local FilePath= "data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion
-    if not file.Exists(FilePath, "DATA") then
-        file.Write(FilePath, util.TableToJSON( value, true ))
-    end
+for key, value in pairs(SCP_263_CONFIG.DefaultQuestionList) do
+    local filepath = "data_scp263/" .. key .. SCP_263_CONFIG.NameFileQuestion
+    if not file.Exists(filepath, "DATA") then
+		file.Write(filepath, util.TableToJSON(value, true ))
+	end
 end
 
 --? We find every file store in data folder, and load every file
-local DataSCP263 = file.Find( "data_scp263/*.json" .. "*", "DATA" ) --? Get every json files
-for key, File in pairs(DataSCP263) do
-	local prefix = string.Explode("_", File)[1] --? Lang Prefix
-	local data = GetDataFromFile("data_scp263/" .. File)
-	if (#data < 3) then ErrorNoHaltWithStack( "The " .. prefix .. " language question file has less than 3 questions, the entity will not be functional if the language used on the server is the one indicated." ) end
+local DataSCP263 = file.Find("data_scp263/*.json" .. "*", "DATA") --? Get every json files
+for key, filename in pairs(DataSCP263) do
+	local prefix = string.Explode("_", filename)[1] --? Lang Prefix
+	local data = GetDataFromFile("data_scp263/" .. filename)
+	if (#data < 3) then ErrorNoHaltWithStack("The " .. prefix .. " language question file has less than 3 questions, the entity will not be functional if the language used on the server is the one indicated.") end
 	SCP_263_CONFIG.QuestionList[prefix] = data
 end
