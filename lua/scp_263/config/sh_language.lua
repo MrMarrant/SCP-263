@@ -684,3 +684,5 @@ for key, filename in pairs(DataSCP263) do
 	if (#data < 3) then ErrorNoHaltWithStack("The " .. prefix .. " language question file has less than 3 questions, the entity will not be functional if the language used on the server is the one indicated.") end
 	SCP_263_CONFIG.QuestionList[prefix] = data
 end
+
+if (table.IsEmpty(SCP_263_CONFIG.QuestionList)) then error( "Error: No question file was found in your data folder, perhaps your setup can't read your data folder, the default EN questions will be used instead." ) return end
